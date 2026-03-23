@@ -1,13 +1,28 @@
 [
   {
-    "content": "#!/usr/bin/env python3\n\"\"\"\nAST chunking script for example source code.\nUses the ASTChunkBuilder class from src/astchunk/astchunk_builder.py with max_chunk_size = 2000.\n\"\"\"\n\nfrom astchunk import ASTChunkBuilder\n\n\ndef main():\n    \"\"\"Main function to process input file and create AST chunks.\"\"\"\n    input_file = 'examples/source_code.txt'\n    output_file = 'examples/outputs/ast_chunking_results.txt'\n    \n    # Read the input file\n    with open(input_file, 'r', encoding='utf-8') as f:\n        code = f.read()\n\n    configs = {\n        \"max_chunk_size\": 1800,\n        \"language\": \"python\",\n        \"metadata_template\": \"default\",\n        \"chunk_expansion\": False\n    }\n    \n    # Initialize AST chunk builder\n    chunk_builder = ASTChunkBuilder(**configs)\n\n    # Create chunks using AST chunking\n    chunks = chunk_builder.chunkify(code, **configs)\n    \n    # Write results to output file\n    with open(output_file, 'w', encoding='utf-8') as f:\n        f.write(f\"AST Chunking Results (max {configs['max_chunk_size']} non-whitespace chars per chunk)\\n\")\n        f.write(\"=\" * 80 + \"\\n\\n\")\n        \n        for i, chunk in enumerate(chunks, 1):\n            # Extract content and metadata\n            content = chunk.get('content', chunk.get('context', ''))\n            metadata = chunk.get('metadata', {})\n\n            # Count lines in the chunk\n            line_count = len(content.split('\\n'))\n            header = f\"{'-' * 25} Chunk {i} ({line_count} lines / {metadata.get('chunk_size', 0)} chars) {'-' * 25}\\n\"\n            f.write(header)\n            f.write(content)\n            f.write(\"\\n\" + \"-\" * (len(header) - 1) + \"\\n\\n\")\n    \n    print(f\"AST chunking completed!\")\n    print(f\"Created {len(chunks)} chunks\")\n    print(f\"Results written to: {output_file}\")\n\nif __name__ == \"__main__\":\n    main()\n",
+    "content": "#!/usr/bin/env python3\n\"\"\"\nAST chunking script for example source code.\nUses the ASTChunkBuilder class from src/astchunk/astchunk_builder.py with max_chunk_size = 2000.\n\"\"\"\n\nfrom astchunk import ASTChunkBuilder\n\n\ndef main():\n    \"\"\"Main function to process input file and create AST chunks.\"\"\"\n    input_file = 'examples/source_code.txt'\n    output_file = 'examples/outputs/ast_chunking_results.txt'\n    \n    # Read the input file\n    with open(input_file, 'r', encoding='utf-8') as f:\n        code = f.read()\n\n    configs = {\n        \"max_chunk_size\": 1800,\n        \"language\": \"python\",\n        \"metadata_template\": \"default\",\n        \"chunk_expansion\": False\n    }\n    \n    # Initialize AST chunk builder\n    chunk_builder = ASTChunkBuilder(**configs)\n\n    # Create chunks using AST chunking\n    chunks = chunk_builder.chunkify(code, **configs)\n    \n    # Write results to output file\n    with open(output_file, 'w', encoding='utf-8') as f:\n        f.write(f\"AST Chunking Results (max {configs['max_chunk_size']} non-whitespace chars per chunk)\\n\")\n        f.write(\"=\" * 80 + \"\\n\\n\")\n        \n        for i, chunk in enumerate(chunks, 1):\n            # Extract content and metadata\n            content = chunk.get('content', chunk.get('context', ''))\n            metadata = chunk.get('metadata', {})\n\n            # Count lines in the chunk\n            line_count = len(content.split('\\n'))\n            header = f\"{'-' * 25} Chunk {i} ({line_count} lines / {metadata.get('chunk_size', 0)} chars) {'-' * 25}\\n\"\n            f.write(header)\n            f.write(content)\n            f.write(\"\\n\" + \"-\" * (len(header) - 1) + \"\\n\\n\")\n    \n    print(f\"AST chunking completed!\")\n    print(f\"Created {len(chunks)} chunks\")\n    print(f\"Results written to: {output_file}\")",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/examples/ast_chunking.py",
+      "chunk_size": 1314,
+      "line_count": 51,
+      "start_line_no": 0,
+      "end_line_no": 50,
+      "node_count": 4,
+      "symbols": [
+        "main"
+      ],
+      "symbol_count": 1
+    }
+  },
+  {
+    "content": "#!/usr/bin/env python3\n\"\"\"\nAST chunking script for example source code.\nUses the ASTChunkBuilder class from src/astchunk/astchunk_builder.py with max_chunk_size = 2000.\n\"\"\"\n\nfrom astchunk import ASTChunkBuilder\n\n\ndef main():\n    \"\"\"Main function to process input file and create AST chunks.\"\"\"\n    input_file = 'examples/source_code.txt'\n    output_file = 'examples/outputs/ast_chunking_results.txt'\n    \n    # Read the input file\n    with open(input_file, 'r', encoding='utf-8') as f:\n        code = f.read()\n\n    configs = {\n        \"max_chunk_size\": 1800,\n        \"language\": \"python\",\n        \"metadata_template\": \"default\",\n        \"chunk_expansion\": False\n    }\n    \n    # Initialize AST chunk builder\n    chunk_builder = ASTChunkBuilder(**configs)\n\n    # Create chunks using AST chunking\n    chunks = chunk_builder.chunkify(code, **configs)\n    \n    # Write results to output file\n    with open(output_file, 'w', encoding='utf-8') as f:\n        f.write(f\"AST Chunking Results (max {configs['max_chunk_size']} non-whitespace chars per chunk)\\n\")\n        f.write(\"=\" * 80 + \"\\n\\n\")\n        \n        for i, chunk in enumerate(chunks, 1):\n            # Extract content and metadata\n            content = chunk.get('content', chunk.get('context', ''))\n            metadata = chunk.get('metadata', {})\n\n            # Count lines in the chunk\n            line_count = len(content.split('\\n'))\n            header = f\"{'-' * 25} Chunk {i} ({line_count} lines / {metadata.get('chunk_size', 0)} chars) {'-' * 25}\\n\"\n            f.write(header)\n            f.write(content)\n            f.write(\"\\n\" + \"-\" * (len(header) - 1) + \"\\n\\n\")\n    \n    print(f\"AST chunking completed!\")\n    print(f\"Created {len(chunks)} chunks\")\n    print(f\"Results written to: {output_file}\")\n\nif __name__ == \"__main__\":\n    main()",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/examples/ast_chunking.py",
       "chunk_size": 1343,
-      "line_count": 55,
+      "line_count": 54,
       "start_line_no": 0,
-      "end_line_no": 54,
-      "node_count": 1,
+      "end_line_no": 53,
+      "node_count": 5,
       "symbols": [
         "main"
       ],
@@ -15,14 +30,44 @@
     }
   },
   {
-    "content": "#!/usr/bin/env python3\n\"\"\"\nAST chunking script for example source code.\nUses the ASTChunkBuilder class from src/astchunk/astchunk_builder.py with max_chunk_size = 2000.\n\"\"\"\n\nfrom astchunk import ASTChunkBuilder\n\n\ndef main():\n    \"\"\"Main function to process input file and create AST chunks.\"\"\"\n    input_file = 'examples/source_code.txt'\n    output_file = 'examples/outputs/ast_chunking_with_expansion_results.txt'\n    \n    # Read the input file\n    with open(input_file, 'r', encoding='utf-8') as f:\n        code = f.read()\n\n    configs = {\n        \"max_chunk_size\": 1800,\n        \"language\": \"python\",\n        \"metadata_template\": \"default\",\n        \"chunk_expansion\": True,\n        \"repo_level_metadata\": {\n            \"filepath\": \"imagen-pytorch/blob/main/imagen_pytorch/trainer.py\"\n        }\n    }\n    \n    # Initialize AST chunk builder\n    chunk_builder = ASTChunkBuilder(**configs)\n\n    # Create chunks using AST chunking\n    chunks = chunk_builder.chunkify(code, **configs)\n    \n    # Write results to output file\n    with open(output_file, 'w', encoding='utf-8') as f:\n        f.write(f\"AST Chunking Results (max {configs['max_chunk_size']} non-whitespace chars per chunk)\\n\")\n        f.write(\"=\" * 80 + \"\\n\\n\")\n        \n        for i, chunk in enumerate(chunks, 1):\n            # Extract content and metadata\n            content = chunk.get('content', chunk.get('context', ''))\n            metadata = chunk.get('metadata', {})\n\n            # Count lines in the chunk\n            line_count = len(content.split('\\n'))\n            header = f\"{'-' * 25} Chunk {i} ({line_count} lines / {metadata.get('chunk_size', 0)} chars) {'-' * 25}\\n\"\n            f.write(header)\n            f.write(content)\n            f.write(\"\\n\" + \"-\" * (len(header) - 1) + \"\\n\\n\")\n    \n    print(f\"AST chunking completed!\")\n    print(f\"Created {len(chunks)} chunks\")\n    print(f\"Results written to: {output_file}\")\n\nif __name__ == \"__main__\":\n    main()\n",
+    "content": "def main():\n    \"\"\"Main function to process input file and create AST chunks.\"\"\"\n    input_file = 'examples/source_code.txt'\n    output_file = 'examples/outputs/ast_chunking_results.txt'\n    \n    # Read the input file\n    with open(input_file, 'r', encoding='utf-8') as f:\n        code = f.read()\n\n    configs = {\n        \"max_chunk_size\": 1800,\n        \"language\": \"python\",\n        \"metadata_template\": \"default\",\n        \"chunk_expansion\": False\n    }\n    \n    # Initialize AST chunk builder\n    chunk_builder = ASTChunkBuilder(**configs)\n\n    # Create chunks using AST chunking\n    chunks = chunk_builder.chunkify(code, **configs)\n    \n    # Write results to output file\n    with open(output_file, 'w', encoding='utf-8') as f:\n        f.write(f\"AST Chunking Results (max {configs['max_chunk_size']} non-whitespace chars per chunk)\\n\")\n        f.write(\"=\" * 80 + \"\\n\\n\")\n        \n        for i, chunk in enumerate(chunks, 1):\n            # Extract content and metadata\n            content = chunk.get('content', chunk.get('context', ''))\n            metadata = chunk.get('metadata', {})\n\n            # Count lines in the chunk\n            line_count = len(content.split('\\n'))\n            header = f\"{'-' * 25} Chunk {i} ({line_count} lines / {metadata.get('chunk_size', 0)} chars) {'-' * 25}\\n\"\n            f.write(header)\n            f.write(content)\n            f.write(\"\\n\" + \"-\" * (len(header) - 1) + \"\\n\\n\")\n    \n    print(f\"AST chunking completed!\")\n    print(f\"Created {len(chunks)} chunks\")\n    print(f\"Results written to: {output_file}\")\n\nif __name__ == \"__main__\":\n    main()",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/examples/ast_chunking.py",
+      "chunk_size": 1158,
+      "line_count": 45,
+      "start_line_no": 9,
+      "end_line_no": 53,
+      "node_count": 2,
+      "symbols": [
+        "main"
+      ],
+      "symbol_count": 1
+    }
+  },
+  {
+    "content": "#!/usr/bin/env python3\n\"\"\"\nAST chunking script for example source code.\nUses the ASTChunkBuilder class from src/astchunk/astchunk_builder.py with max_chunk_size = 2000.\n\"\"\"\n\nfrom astchunk import ASTChunkBuilder\n\n\ndef main():\n    \"\"\"Main function to process input file and create AST chunks.\"\"\"\n    input_file = 'examples/source_code.txt'\n    output_file = 'examples/outputs/ast_chunking_with_expansion_results.txt'\n    \n    # Read the input file\n    with open(input_file, 'r', encoding='utf-8') as f:\n        code = f.read()\n\n    configs = {\n        \"max_chunk_size\": 1800,\n        \"language\": \"python\",\n        \"metadata_template\": \"default\",\n        \"chunk_expansion\": True,\n        \"repo_level_metadata\": {\n            \"filepath\": \"imagen-pytorch/blob/main/imagen_pytorch/trainer.py\"\n        }\n    }\n    \n    # Initialize AST chunk builder\n    chunk_builder = ASTChunkBuilder(**configs)\n\n    # Create chunks using AST chunking\n    chunks = chunk_builder.chunkify(code, **configs)\n    \n    # Write results to output file\n    with open(output_file, 'w', encoding='utf-8') as f:\n        f.write(f\"AST Chunking Results (max {configs['max_chunk_size']} non-whitespace chars per chunk)\\n\")\n        f.write(\"=\" * 80 + \"\\n\\n\")\n        \n        for i, chunk in enumerate(chunks, 1):\n            # Extract content and metadata\n            content = chunk.get('content', chunk.get('context', ''))\n            metadata = chunk.get('metadata', {})\n\n            # Count lines in the chunk\n            line_count = len(content.split('\\n'))\n            header = f\"{'-' * 25} Chunk {i} ({line_count} lines / {metadata.get('chunk_size', 0)} chars) {'-' * 25}\\n\"\n            f.write(header)\n            f.write(content)\n            f.write(\"\\n\" + \"-\" * (len(header) - 1) + \"\\n\\n\")\n    \n    print(f\"AST chunking completed!\")\n    print(f\"Created {len(chunks)} chunks\")\n    print(f\"Results written to: {output_file}\")",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/examples/ast_chunking_with_expansion.py",
+      "chunk_size": 1416,
+      "line_count": 54,
+      "start_line_no": 0,
+      "end_line_no": 53,
+      "node_count": 4,
+      "symbols": [
+        "main"
+      ],
+      "symbol_count": 1
+    }
+  },
+  {
+    "content": "#!/usr/bin/env python3\n\"\"\"\nAST chunking script for example source code.\nUses the ASTChunkBuilder class from src/astchunk/astchunk_builder.py with max_chunk_size = 2000.\n\"\"\"\n\nfrom astchunk import ASTChunkBuilder\n\n\ndef main():\n    \"\"\"Main function to process input file and create AST chunks.\"\"\"\n    input_file = 'examples/source_code.txt'\n    output_file = 'examples/outputs/ast_chunking_with_expansion_results.txt'\n    \n    # Read the input file\n    with open(input_file, 'r', encoding='utf-8') as f:\n        code = f.read()\n\n    configs = {\n        \"max_chunk_size\": 1800,\n        \"language\": \"python\",\n        \"metadata_template\": \"default\",\n        \"chunk_expansion\": True,\n        \"repo_level_metadata\": {\n            \"filepath\": \"imagen-pytorch/blob/main/imagen_pytorch/trainer.py\"\n        }\n    }\n    \n    # Initialize AST chunk builder\n    chunk_builder = ASTChunkBuilder(**configs)\n\n    # Create chunks using AST chunking\n    chunks = chunk_builder.chunkify(code, **configs)\n    \n    # Write results to output file\n    with open(output_file, 'w', encoding='utf-8') as f:\n        f.write(f\"AST Chunking Results (max {configs['max_chunk_size']} non-whitespace chars per chunk)\\n\")\n        f.write(\"=\" * 80 + \"\\n\\n\")\n        \n        for i, chunk in enumerate(chunks, 1):\n            # Extract content and metadata\n            content = chunk.get('content', chunk.get('context', ''))\n            metadata = chunk.get('metadata', {})\n\n            # Count lines in the chunk\n            line_count = len(content.split('\\n'))\n            header = f\"{'-' * 25} Chunk {i} ({line_count} lines / {metadata.get('chunk_size', 0)} chars) {'-' * 25}\\n\"\n            f.write(header)\n            f.write(content)\n            f.write(\"\\n\" + \"-\" * (len(header) - 1) + \"\\n\\n\")\n    \n    print(f\"AST chunking completed!\")\n    print(f\"Created {len(chunks)} chunks\")\n    print(f\"Results written to: {output_file}\")\n\nif __name__ == \"__main__\":\n    main()",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/examples/ast_chunking_with_expansion.py",
       "chunk_size": 1445,
-      "line_count": 58,
+      "line_count": 57,
       "start_line_no": 0,
-      "end_line_no": 57,
-      "node_count": 1,
+      "end_line_no": 56,
+      "node_count": 5,
       "symbols": [
         "main"
       ],
@@ -30,19 +75,95 @@
     }
   },
   {
-    "content": "#!/usr/bin/env python3\n\"\"\"\nFixed chunking script for example source code.\n\"\"\"\n\ndef chunkify(code: str, max_chunk_size: int) -> list[str]:\n    \"\"\"\n    A simple baseline chunking method that divides code into chunks where each chunk is less than max_chunk_size lines.\n    \n    Args:\n        code: The input code as a string\n        max_chunk_size: Maximum number of lines per chunk\n        \n    Returns:\n        List of code chunks as strings\n    \"\"\"\n    lines = code.split('\\n')\n    chunks = []\n    current_chunk = []\n    \n    for line in lines:\n        # If adding this line would exceed the limit, start a new chunk\n        if len(current_chunk) >= max_chunk_size:\n            if current_chunk:  # Only add non-empty chunks\n                chunks.append('\\n'.join(current_chunk))\n            current_chunk = [line]\n        else:\n            current_chunk.append(line)\n    \n    # Add the last chunk if it's not empty\n    if current_chunk:\n        chunks.append('\\n'.join(current_chunk))\n    \n    return chunks\n\n\ndef main():\n    \"\"\"Main function to process input file and create fixed chunks.\"\"\"\n    input_file = 'examples/source_code.txt'\n    output_file = 'examples/outputs/fixed_chunking_results.txt'\n    \n    # Read the input file\n    with open(input_file, 'r', encoding='utf-8') as f:\n        code = f.read()\n    \n    # Set max chunk size (in lines)\n    max_chunk_size = 50 \n    \n    # Create chunks\n    chunks = chunkify(code, max_chunk_size)\n    \n    # Write results to output file\n    with open(output_file, 'w', encoding='utf-8') as f:\n        f.write(f\"Fixed Chunking Results (max {max_chunk_size} lines per chunk)\\n\")\n        f.write(\"=\" * 80 + \"\\n\\n\")\n        \n        for i, chunk in enumerate(chunks, 1):\n            header = f\"{'-' * 25} Chunk {i} ({len(chunk.split(chr(10)))} lines) {'-' * 25}\\n\"\n            f.write(header)\n            f.write(chunk)\n            f.write(\"\\n\" + \"-\" * (len(header) - 1) + \"\\n\\n\")\n    \n    print(f\"Fixed chunking completed!\")\n    print(f\"Created {len(chunks)} chunks\")\n    print(f\"Results written to: {output_file}\")\n\n\nif __name__ == \"__main__\":\n    main()\n",
+    "content": "def main():\n    \"\"\"Main function to process input file and create AST chunks.\"\"\"\n    input_file = 'examples/source_code.txt'\n    output_file = 'examples/outputs/ast_chunking_with_expansion_results.txt'\n    \n    # Read the input file\n    with open(input_file, 'r', encoding='utf-8') as f:\n        code = f.read()\n\n    configs = {\n        \"max_chunk_size\": 1800,\n        \"language\": \"python\",\n        \"metadata_template\": \"default\",\n        \"chunk_expansion\": True,\n        \"repo_level_metadata\": {\n            \"filepath\": \"imagen-pytorch/blob/main/imagen_pytorch/trainer.py\"\n        }\n    }\n    \n    # Initialize AST chunk builder\n    chunk_builder = ASTChunkBuilder(**configs)\n\n    # Create chunks using AST chunking\n    chunks = chunk_builder.chunkify(code, **configs)\n    \n    # Write results to output file\n    with open(output_file, 'w', encoding='utf-8') as f:\n        f.write(f\"AST Chunking Results (max {configs['max_chunk_size']} non-whitespace chars per chunk)\\n\")\n        f.write(\"=\" * 80 + \"\\n\\n\")\n        \n        for i, chunk in enumerate(chunks, 1):\n            # Extract content and metadata\n            content = chunk.get('content', chunk.get('context', ''))\n            metadata = chunk.get('metadata', {})\n\n            # Count lines in the chunk\n            line_count = len(content.split('\\n'))\n            header = f\"{'-' * 25} Chunk {i} ({line_count} lines / {metadata.get('chunk_size', 0)} chars) {'-' * 25}\\n\"\n            f.write(header)\n            f.write(content)\n            f.write(\"\\n\" + \"-\" * (len(header) - 1) + \"\\n\\n\")\n    \n    print(f\"AST chunking completed!\")\n    print(f\"Created {len(chunks)} chunks\")\n    print(f\"Results written to: {output_file}\")\n\nif __name__ == \"__main__\":\n    main()",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/examples/ast_chunking_with_expansion.py",
+      "chunk_size": 1260,
+      "line_count": 48,
+      "start_line_no": 9,
+      "end_line_no": 56,
+      "node_count": 2,
+      "symbols": [
+        "main"
+      ],
+      "symbol_count": 1
+    }
+  },
+  {
+    "content": "#!/usr/bin/env python3\n\"\"\"\nFixed chunking script for example source code.\n\"\"\"\n\ndef chunkify(code: str, max_chunk_size: int) -> list[str]:\n    \"\"\"\n    A simple baseline chunking method that divides code into chunks where each chunk is less than max_chunk_size lines.\n    \n    Args:\n        code: The input code as a string\n        max_chunk_size: Maximum number of lines per chunk\n        \n    Returns:\n        List of code chunks as strings\n    \"\"\"\n    lines = code.split('\\n')\n    chunks = []\n    current_chunk = []\n    \n    for line in lines:\n        # If adding this line would exceed the limit, start a new chunk\n        if len(current_chunk) >= max_chunk_size:\n            if current_chunk:  # Only add non-empty chunks\n                chunks.append('\\n'.join(current_chunk))\n            current_chunk = [line]\n        else:\n            current_chunk.append(line)\n    \n    # Add the last chunk if it's not empty\n    if current_chunk:\n        chunks.append('\\n'.join(current_chunk))\n    \n    return chunks",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/examples/fixed_chunking.py",
-      "chunk_size": 1503,
-      "line_count": 70,
+      "chunk_size": 706,
+      "line_count": 34,
       "start_line_no": 0,
-      "end_line_no": 69,
-      "node_count": 1,
+      "end_line_no": 33,
+      "node_count": 3,
+      "symbols": [
+        "chunkify"
+      ],
+      "symbol_count": 1
+    }
+  },
+  {
+    "content": "#!/usr/bin/env python3\n\"\"\"\nFixed chunking script for example source code.\n\"\"\"\n\ndef chunkify(code: str, max_chunk_size: int) -> list[str]:\n    \"\"\"\n    A simple baseline chunking method that divides code into chunks where each chunk is less than max_chunk_size lines.\n    \n    Args:\n        code: The input code as a string\n        max_chunk_size: Maximum number of lines per chunk\n        \n    Returns:\n        List of code chunks as strings\n    \"\"\"\n    lines = code.split('\\n')\n    chunks = []\n    current_chunk = []\n    \n    for line in lines:\n        # If adding this line would exceed the limit, start a new chunk\n        if len(current_chunk) >= max_chunk_size:\n            if current_chunk:  # Only add non-empty chunks\n                chunks.append('\\n'.join(current_chunk))\n            current_chunk = [line]\n        else:\n            current_chunk.append(line)\n    \n    # Add the last chunk if it's not empty\n    if current_chunk:\n        chunks.append('\\n'.join(current_chunk))\n    \n    return chunks\n\n\ndef main():\n    \"\"\"Main function to process input file and create fixed chunks.\"\"\"\n    input_file = 'examples/source_code.txt'\n    output_file = 'examples/outputs/fixed_chunking_results.txt'\n    \n    # Read the input file\n    with open(input_file, 'r', encoding='utf-8') as f:\n        code = f.read()\n    \n    # Set max chunk size (in lines)\n    max_chunk_size = 50 \n    \n    # Create chunks\n    chunks = chunkify(code, max_chunk_size)\n    \n    # Write results to output file\n    with open(output_file, 'w', encoding='utf-8') as f:\n        f.write(f\"Fixed Chunking Results (max {max_chunk_size} lines per chunk)\\n\")\n        f.write(\"=\" * 80 + \"\\n\\n\")\n        \n        for i, chunk in enumerate(chunks, 1):\n            header = f\"{'-' * 25} Chunk {i} ({len(chunk.split(chr(10)))} lines) {'-' * 25}\\n\"\n            f.write(header)\n            f.write(chunk)\n            f.write(\"\\n\" + \"-\" * (len(header) - 1) + \"\\n\\n\")\n    \n    print(f\"Fixed chunking completed!\")\n    print(f\"Created {len(chunks)} chunks\")\n    print(f\"Results written to: {output_file}\")",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/examples/fixed_chunking.py",
+      "chunk_size": 1474,
+      "line_count": 65,
+      "start_line_no": 0,
+      "end_line_no": 64,
+      "node_count": 4,
       "symbols": [
         "chunkify",
         "main"
       ],
       "symbol_count": 2
+    }
+  },
+  {
+    "content": "def chunkify(code: str, max_chunk_size: int) -> list[str]:\n    \"\"\"\n    A simple baseline chunking method that divides code into chunks where each chunk is less than max_chunk_size lines.\n    \n    Args:\n        code: The input code as a string\n        max_chunk_size: Maximum number of lines per chunk\n        \n    Returns:\n        List of code chunks as strings\n    \"\"\"\n    lines = code.split('\\n')\n    chunks = []\n    current_chunk = []\n    \n    for line in lines:\n        # If adding this line would exceed the limit, start a new chunk\n        if len(current_chunk) >= max_chunk_size:\n            if current_chunk:  # Only add non-empty chunks\n                chunks.append('\\n'.join(current_chunk))\n            current_chunk = [line]\n        else:\n            current_chunk.append(line)\n    \n    # Add the last chunk if it's not empty\n    if current_chunk:\n        chunks.append('\\n'.join(current_chunk))\n    \n    return chunks\n\n\ndef main():\n    \"\"\"Main function to process input file and create fixed chunks.\"\"\"\n    input_file = 'examples/source_code.txt'\n    output_file = 'examples/outputs/fixed_chunking_results.txt'\n    \n    # Read the input file\n    with open(input_file, 'r', encoding='utf-8') as f:\n        code = f.read()\n    \n    # Set max chunk size (in lines)\n    max_chunk_size = 50 \n    \n    # Create chunks\n    chunks = chunkify(code, max_chunk_size)\n    \n    # Write results to output file\n    with open(output_file, 'w', encoding='utf-8') as f:\n        f.write(f\"Fixed Chunking Results (max {max_chunk_size} lines per chunk)\\n\")\n        f.write(\"=\" * 80 + \"\\n\\n\")\n        \n        for i, chunk in enumerate(chunks, 1):\n            header = f\"{'-' * 25} Chunk {i} ({len(chunk.split(chr(10)))} lines) {'-' * 25}\\n\"\n            f.write(header)\n            f.write(chunk)\n            f.write(\"\\n\" + \"-\" * (len(header) - 1) + \"\\n\\n\")\n    \n    print(f\"Fixed chunking completed!\")\n    print(f\"Created {len(chunks)} chunks\")\n    print(f\"Results written to: {output_file}\")\n\n\nif __name__ == \"__main__\":\n    main()",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/examples/fixed_chunking.py",
+      "chunk_size": 1436,
+      "line_count": 64,
+      "start_line_no": 5,
+      "end_line_no": 68,
+      "node_count": 3,
+      "symbols": [
+        "chunkify",
+        "main"
+      ],
+      "symbol_count": 2
+    }
+  },
+  {
+    "content": "def main():\n    \"\"\"Main function to process input file and create fixed chunks.\"\"\"\n    input_file = 'examples/source_code.txt'\n    output_file = 'examples/outputs/fixed_chunking_results.txt'\n    \n    # Read the input file\n    with open(input_file, 'r', encoding='utf-8') as f:\n        code = f.read()\n    \n    # Set max chunk size (in lines)\n    max_chunk_size = 50 \n    \n    # Create chunks\n    chunks = chunkify(code, max_chunk_size)\n    \n    # Write results to output file\n    with open(output_file, 'w', encoding='utf-8') as f:\n        f.write(f\"Fixed Chunking Results (max {max_chunk_size} lines per chunk)\\n\")\n        f.write(\"=\" * 80 + \"\\n\\n\")\n        \n        for i, chunk in enumerate(chunks, 1):\n            header = f\"{'-' * 25} Chunk {i} ({len(chunk.split(chr(10)))} lines) {'-' * 25}\\n\"\n            f.write(header)\n            f.write(chunk)\n            f.write(\"\\n\" + \"-\" * (len(header) - 1) + \"\\n\\n\")\n    \n    print(f\"Fixed chunking completed!\")\n    print(f\"Created {len(chunks)} chunks\")\n    print(f\"Results written to: {output_file}\")\n\n\nif __name__ == \"__main__\":\n    main()",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/examples/fixed_chunking.py",
+      "chunk_size": 797,
+      "line_count": 33,
+      "start_line_no": 36,
+      "end_line_no": 68,
+      "node_count": 2,
+      "symbols": [
+        "main"
+      ],
+      "symbol_count": 1
+    }
+  },
+  {
+    "content": "import json\nimport sys\nfrom pathlib import Path\nfrom typing import List, Optional\n\nimport typer as ty\n\nfrom astchunk import ASTChunkBuilder\nfrom astchunk.repo_scan import (\n    collect_source_files,\n    load_gitignore_spec,\n    resolve_ignore_root,\n)\n\napp = ty.Typer(help=\"AST-based code chunking CLI\")\n\nSUPPORTED_LANGUAGES = frozenset({\"python\", \"java\", \"csharp\", \"typescript\"})\nCHUNK_STRATEGIES = frozenset({\"size\", \"definition\", \"hybrid\"})\n\n\ndef _write_chunk_output(\n    chunks: list,\n    json_output: bool,\n    output_file: Optional[Path],\n    max_chunk_size: int,\n) -> None:\n    if json_output:\n        output = json.dumps(chunks, indent=2)\n        if output_file:\n            output_file.write_text(output, encoding=\"utf-8\")\n            ty.echo(f\"Wrote {len(chunks)} chunks to {output_file}\", err=True)\n        else:\n            ty.echo(output)\n    else:\n        lines = []\n        lines.append(\n            f\"AST Chunking Results (max {max_chunk_size} non-whitespace chars per chunk)\"\n        )\n        lines.append(\"=\" * 80)\n        lines.append(\"\")\n\n        for i, ch in enumerate(chunks, 1):\n            content = ch.get(\"content\", ch.get(\"context\", \"\"))\n            metadata = ch.get(\"metadata\", {})\n            line_count = len(content.split(\"\\n\"))\n\n            header = (\n                f\"{'-' * 25} Chunk {i} ({line_count} lines / \"\n                f\"{metadata.get('chunk_size', 0)} chars) {'-' * 25}\"\n            )\n            lines.append(header)\n            lines.append(content)\n            lines.append(\"-\" * (len(header)))\n            lines.append(\"\")\n\n        output = \"\\n\".join(lines)\n\n        if output_file:\n            output_file.write_text(output, encoding=\"utf-8\")\n            ty.echo(f\"Wrote {len(chunks)} chunks to {output_file}\")\n        else:\n            ty.echo(output)",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/main.py",
+      "chunk_size": 1285,
+      "line_count": 62,
+      "start_line_no": 0,
+      "end_line_no": 61,
+      "node_count": 11,
+      "symbols": [
+        "_write_chunk_output"
+      ],
+      "symbol_count": 1
     }
   },
   {
@@ -62,14 +183,14 @@
     }
   },
   {
-    "content": "import json\nimport sys\nfrom pathlib import Path\nfrom typing import List, Optional\n\nimport typer as ty\n\nfrom astchunk import ASTChunkBuilder\nfrom astchunk.repo_scan import (\n    collect_source_files,\n    load_gitignore_spec,\n    resolve_ignore_root,\n)\n\napp = ty.Typer(help=\"AST-based code chunking CLI\")\n\nSUPPORTED_LANGUAGES = frozenset({\"python\", \"java\", \"csharp\", \"typescript\"})\nCHUNK_STRATEGIES = frozenset({\"size\", \"definition\", \"hybrid\"})\n\n\ndef _write_chunk_output(\n    chunks: list,\n    json_output: bool,\n    output_file: Optional[Path],\n    max_chunk_size: int,\n) -> None:\n    if json_output:\n        output = json.dumps(chunks, indent=2)\n        if output_file:\n            output_file.write_text(output, encoding=\"utf-8\")\n            ty.echo(f\"Wrote {len(chunks)} chunks to {output_file}\", err=True)\n        else:\n            ty.echo(output)\n    else:\n        lines = []\n        lines.append(\n            f\"AST Chunking Results (max {max_chunk_size} non-whitespace chars per chunk)\"\n        )\n        lines.append(\"=\" * 80)\n        lines.append(\"\")\n\n        for i, ch in enumerate(chunks, 1):\n            content = ch.get(\"content\", ch.get(\"context\", \"\"))\n            metadata = ch.get(\"metadata\", {})\n            line_count = len(content.split(\"\\n\"))\n\n            header = (\n                f\"{'-' * 25} Chunk {i} ({line_count} lines / \"\n                f\"{metadata.get('chunk_size', 0)} chars) {'-' * 25}\"\n            )\n            lines.append(header)\n            lines.append(content)\n            lines.append(\"-\" * (len(header)))\n            lines.append(\"\")\n\n        output = \"\\n\".join(lines)\n\n        if output_file:\n            output_file.write_text(output, encoding=\"utf-8\")\n            ty.echo(f\"Wrote {len(chunks)} chunks to {output_file}\")\n        else:\n            ty.echo(output)\n\n\n@app.command()\ndef chunk(\n    input_file: Path = ty.Argument(\n        ...,\n        help=\"Input file containing source code to chunk\",\n        exists=True,\n        file_okay=True,\n        dir_okay=False,\n    ),\n    output_file: Optional[Path] = ty.Option(\n        None,\n        \"-o\",\n        \"--output\",\n        help=\"Output file for chunks (optional, prints to stdout if not specified)\",\n        file_okay=True,\n        dir_okay=False,\n    ),\n    max_chunk_size: int = ty.Option(\n        1800,\n        \"-m\",\n        \"--max-chunk-size\",\n        help=\"Maximum non-whitespace characters per chunk\",\n    ),\n    language: str = ty.Option(\n        \"python\",\n        \"-l\",\n        \"--language\",\n        help=\"Programming language (python, java, csharp, typescript)\",\n    ),\n    metadata_template: str = ty.Option(\n        \"default\",\n        \"-t\",\n        \"--metadata-template\",\n        help=\"Metadata template to use\",\n    ),\n    chunk_expansion: bool = ty.Option(\n        False,\n        \"-e\",\n        \"--chunk-expansion\",\n        help=\"Enable chunk expansion with metadata headers\",\n    ),\n    chunk_overlap: int = ty.Option(\n        450,\n        \"--chunk-overlap\",\n        help=\"Number of AST nodes to overlap between chunks\",\n    ),\n    repo_name: Optional[str] = ty.Option(\n        None,\n        \"--repo-name\",\n        help=\"Repository name for metadata\",\n    ),\n    filepath: Optional[str] = ty.Option(\n        None,\n        \"--filepath\",\n        \"--file-path\",\n        help=\"Override filepath in chunk metadata (default: absolute path of input file)\",\n    ),\n    chunk_strategy: str = ty.Option(\n        \"size\",\n        \"--chunk-strategy\",\n        help=\"size (default), definition (one window per top-level def), or hybrid (split large defs)\",\n    ),\n    json_output: bool = ty.Option(\n        False,\n        \"-j\",\n        \"--json\",\n        help=\"Output as JSON instead of human-readable format\",\n    ),\n):\n    \"\"\"\n    Chunk source code into AST-based chunks.\n    \"\"\"\n    if chunk_strategy not in CHUNK_STRATEGIES:\n        raise ty.BadParameter(\n            f\"chunk_strategy must be one of {', '.join(sorted(CHUNK_STRATEGIES))}\"\n        )\n    code = input_file.read_text(encoding=\"utf-8\")\n\n    configs = {\n        \"max_chunk_size\": max_chunk_size,\n        \"language\": language,\n        \"metadata_template\": metadata_template,\n        \"chunk_expansion\": chunk_expansion,\n        \"chunk_overlap\": chunk_overlap,\n        \"chunk_strategy\": chunk_strategy,\n    }\n\n    repo_level_metadata: dict = {}\n    if repo_name:\n        repo_level_metadata[\"repo_name\"] = repo_name\n    repo_level_metadata[\"filepath\"] = filepath or str(input_file.resolve())\n\n    configs[\"repo_level_metadata\"] = repo_level_metadata\n\n    chunk_builder = ASTChunkBuilder(**configs)\n    chunks = chunk_builder.chunkify(code, **configs)\n\n    _write_chunk_output(chunks, json_output, output_file, max_chunk_size)\n    ty.echo(\n        f\"Created {len(chunks)} chunks\",\n        err=bool(json_output and output_file is None),\n    )",
+    "content": "def _write_chunk_output(\n    chunks: list,\n    json_output: bool,\n    output_file: Optional[Path],\n    max_chunk_size: int,\n) -> None:\n    if json_output:\n        output = json.dumps(chunks, indent=2)\n        if output_file:\n            output_file.write_text(output, encoding=\"utf-8\")\n            ty.echo(f\"Wrote {len(chunks)} chunks to {output_file}\", err=True)\n        else:\n            ty.echo(output)\n    else:\n        lines = []\n        lines.append(\n            f\"AST Chunking Results (max {max_chunk_size} non-whitespace chars per chunk)\"\n        )\n        lines.append(\"=\" * 80)\n        lines.append(\"\")\n\n        for i, ch in enumerate(chunks, 1):\n            content = ch.get(\"content\", ch.get(\"context\", \"\"))\n            metadata = ch.get(\"metadata\", {})\n            line_count = len(content.split(\"\\n\"))\n\n            header = (\n                f\"{'-' * 25} Chunk {i} ({line_count} lines / \"\n                f\"{metadata.get('chunk_size', 0)} chars) {'-' * 25}\"\n            )\n            lines.append(header)\n            lines.append(content)\n            lines.append(\"-\" * (len(header)))\n            lines.append(\"\")\n\n        output = \"\\n\".join(lines)\n\n        if output_file:\n            output_file.write_text(output, encoding=\"utf-8\")\n            ty.echo(f\"Wrote {len(chunks)} chunks to {output_file}\")\n        else:\n            ty.echo(output)\n\n\n@app.command()\ndef chunk(\n    input_file: Path = ty.Argument(\n        ...,\n        help=\"Input file containing source code to chunk\",\n        exists=True,\n        file_okay=True,\n        dir_okay=False,\n    ),\n    output_file: Optional[Path] = ty.Option(\n        None,\n        \"-o\",\n        \"--output\",\n        help=\"Output file for chunks (optional, prints to stdout if not specified)\",\n        file_okay=True,\n        dir_okay=False,\n    ),\n    max_chunk_size: int = ty.Option(\n        1800,\n        \"-m\",\n        \"--max-chunk-size\",\n        help=\"Maximum non-whitespace characters per chunk\",\n    ),\n    language: str = ty.Option(\n        \"python\",\n        \"-l\",\n        \"--language\",\n        help=\"Programming language (python, java, csharp, typescript)\",\n    ),\n    metadata_template: str = ty.Option(\n        \"default\",\n        \"-t\",\n        \"--metadata-template\",\n        help=\"Metadata template to use\",\n    ),\n    chunk_expansion: bool = ty.Option(\n        False,\n        \"-e\",\n        \"--chunk-expansion\",\n        help=\"Enable chunk expansion with metadata headers\",\n    ),\n    chunk_overlap: int = ty.Option(\n        450,\n        \"--chunk-overlap\",\n        help=\"Number of AST nodes to overlap between chunks\",\n    ),\n    repo_name: Optional[str] = ty.Option(\n        None,\n        \"--repo-name\",\n        help=\"Repository name for metadata\",\n    ),\n    filepath: Optional[str] = ty.Option(\n        None,\n        \"--filepath\",\n        \"--file-path\",\n        help=\"Override filepath in chunk metadata (default: absolute path of input file)\",\n    ),\n    chunk_strategy: str = ty.Option(\n        \"size\",\n        \"--chunk-strategy\",\n        help=\"size (default), definition (one window per top-level def), or hybrid (split large defs)\",\n    ),\n    json_output: bool = ty.Option(\n        False,\n        \"-j\",\n        \"--json\",\n        help=\"Output as JSON instead of human-readable format\",\n    ),\n):\n    \"\"\"\n    Chunk source code into AST-based chunks.\n    \"\"\"\n    if chunk_strategy not in CHUNK_STRATEGIES:\n        raise ty.BadParameter(\n            f\"chunk_strategy must be one of {', '.join(sorted(CHUNK_STRATEGIES))}\"\n        )\n    code = input_file.read_text(encoding=\"utf-8\")\n\n    configs = {\n        \"max_chunk_size\": max_chunk_size,\n        \"language\": language,\n        \"metadata_template\": metadata_template,\n        \"chunk_expansion\": chunk_expansion,\n        \"chunk_overlap\": chunk_overlap,\n        \"chunk_strategy\": chunk_strategy,\n    }\n\n    repo_level_metadata: dict = {}\n    if repo_name:\n        repo_level_metadata[\"repo_name\"] = repo_name\n    repo_level_metadata[\"filepath\"] = filepath or str(input_file.resolve())\n\n    configs[\"repo_level_metadata\"] = repo_level_metadata\n\n    chunk_builder = ASTChunkBuilder(**configs)\n    chunks = chunk_builder.chunkify(code, **configs)\n\n    _write_chunk_output(chunks, json_output, output_file, max_chunk_size)\n    ty.echo(\n        f\"Created {len(chunks)} chunks\",\n        err=bool(json_output and output_file is None),\n    )",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/main.py",
-      "chunk_size": 3411,
-      "line_count": 166,
-      "start_line_no": 0,
+      "chunk_size": 3030,
+      "line_count": 146,
+      "start_line_no": 20,
       "end_line_no": 165,
-      "node_count": 17,
+      "node_count": 7,
       "symbols": [
         "_write_chunk_output",
         "chunk"
@@ -155,14 +276,14 @@
     }
   },
   {
-    "content": "\"\"\"\nASTChunk - AST-based code chunking library.\n\nThis package provides tools for intelligently chunking source code\nwhile preserving syntactic structure and semantic boundaries.\n\"\"\"\n\nfrom .astchunk_builder import ASTChunkBuilder\nfrom .astchunk import ASTChunk\nfrom .astnode import ASTNode\nfrom .symbols import DefinitionSpan, collect_definitions, symbols_overlapping_chunk\nfrom .preprocessing import (\n    ByteRange,\n    IntRange,\n    preprocess_nws_count,\n    get_nws_count,\n    get_nws_count_direct,\n    get_nodes_in_brange,\n    get_largest_node_in_brange\n)\n\n__version__ = \"0.1.0\"\n\n__all__ = [\n    \"ASTChunkBuilder\",\n    \"ASTChunk\",\n    \"ASTNode\",\n    \"DefinitionSpan\",\n    \"collect_definitions\",\n    \"symbols_overlapping_chunk\",\n    \"ByteRange\",\n    \"IntRange\",\n    \"preprocess_nws_count\",\n    \"get_nws_count\",\n    \"get_nws_count_direct\",\n    \"get_nodes_in_brange\",\n    \"get_largest_node_in_brange\"\n]\n",
+    "content": "\"\"\"\nASTChunk - AST-based code chunking library.\n\nThis package provides tools for intelligently chunking source code\nwhile preserving syntactic structure and semantic boundaries.\n\"\"\"\n\nfrom .astchunk_builder import ASTChunkBuilder\nfrom .astchunk import ASTChunk\nfrom .astnode import ASTNode\nfrom .symbols import DefinitionSpan, collect_definitions, symbols_overlapping_chunk\nfrom .preprocessing import (\n    ByteRange,\n    IntRange,\n    preprocess_nws_count,\n    get_nws_count,\n    get_nws_count_direct,\n    get_nodes_in_brange,\n    get_largest_node_in_brange\n)\n\n__version__ = \"0.1.0\"\n\n__all__ = [\n    \"ASTChunkBuilder\",\n    \"ASTChunk\",\n    \"ASTNode\",\n    \"DefinitionSpan\",\n    \"collect_definitions\",\n    \"symbols_overlapping_chunk\",\n    \"ByteRange\",\n    \"IntRange\",\n    \"preprocess_nws_count\",\n    \"get_nws_count\",\n    \"get_nws_count_direct\",\n    \"get_nodes_in_brange\",\n    \"get_largest_node_in_brange\"\n]",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/__init__.py",
       "chunk_size": 746,
-      "line_count": 39,
+      "line_count": 38,
       "start_line_no": 0,
-      "end_line_no": 38,
-      "node_count": 1,
+      "end_line_no": 37,
+      "node_count": 8,
       "symbols": [],
       "symbol_count": 0
     }
@@ -474,14 +595,14 @@
     }
   },
   {
-    "content": "import tree_sitter as ts\n\nfrom astchunk.preprocessing import ByteRange\n\n\nclass ASTNode():\n    \"\"\"\n    A wrapper class for tree-sitter node.\n\n    This class provides additional information for each node, including:\n        - node_size: size of the node (in non-whitespace characters)\n        - ancestors: ancestors of the node (list of tree-sitter nodes)\n\n    Attributes:\n        - node: tree-sitter node\n        - node_size: size of the node (in non-whitespace characters)\n        - ancestors: ancestors of the node (list of tree-sitter nodes)\n    \"\"\"\n    def __init__(self, ts_node: ts.Node, node_size: int, ancestors: list[ts.Node] = []):\n        self.node = ts_node\n        self.node_size = node_size\n        self.ancestors = ancestors\n\n    @property\n    def bcode(self):\n        return self.node.text\n    \n    @property\n    def strcode(self):\n        return self.bcode.decode(\"utf8\")\n    \n    @property\n    def brange(self):\n        return ByteRange(self.node.start_byte, self.node.end_byte)\n    \n    @property\n    def start_line(self):\n        return self.node.start_point.row\n    \n    @property\n    def end_line(self):\n        return self.node.end_point.row\n    \n    @property\n    def start_col(self):\n        return self.node.start_point.column\n    \n    @property\n    def end_col(self):\n        return self.node.end_point.column\n    \n    @property\n    def size(self):\n        \"\"\"\n        Define size as the number of non-whitespace characters\n        \"\"\"\n        return self.node_size\n\n    @property\n    def length(self):\n        \"\"\"\n        Define length as the number of lines covered by the node\n        \"\"\"\n        return self.end_line - self.start_line + 1\n",
+    "content": "import tree_sitter as ts\n\nfrom astchunk.preprocessing import ByteRange\n\n\nclass ASTNode():\n    \"\"\"\n    A wrapper class for tree-sitter node.\n\n    This class provides additional information for each node, including:\n        - node_size: size of the node (in non-whitespace characters)\n        - ancestors: ancestors of the node (list of tree-sitter nodes)\n\n    Attributes:\n        - node: tree-sitter node\n        - node_size: size of the node (in non-whitespace characters)\n        - ancestors: ancestors of the node (list of tree-sitter nodes)\n    \"\"\"\n    def __init__(self, ts_node: ts.Node, node_size: int, ancestors: list[ts.Node] = []):\n        self.node = ts_node\n        self.node_size = node_size\n        self.ancestors = ancestors\n\n    @property\n    def bcode(self):\n        return self.node.text\n    \n    @property\n    def strcode(self):\n        return self.bcode.decode(\"utf8\")\n    \n    @property\n    def brange(self):\n        return ByteRange(self.node.start_byte, self.node.end_byte)\n    \n    @property\n    def start_line(self):\n        return self.node.start_point.row\n    \n    @property\n    def end_line(self):\n        return self.node.end_point.row\n    \n    @property\n    def start_col(self):\n        return self.node.start_point.column\n    \n    @property\n    def end_col(self):\n        return self.node.end_point.column\n    \n    @property\n    def size(self):\n        \"\"\"\n        Define size as the number of non-whitespace characters\n        \"\"\"\n        return self.node_size\n\n    @property\n    def length(self):\n        \"\"\"\n        Define length as the number of lines covered by the node\n        \"\"\"\n        return self.end_line - self.start_line + 1",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/astnode.py",
       "chunk_size": 1185,
-      "line_count": 65,
+      "line_count": 64,
       "start_line_no": 0,
-      "end_line_no": 64,
-      "node_count": 1,
+      "end_line_no": 63,
+      "node_count": 3,
       "symbols": [
         "ASTNode",
         "__init__",
@@ -499,148 +620,443 @@
     }
   },
   {
-    "content": "import string\nimport numpy as np\nfrom dataclasses import dataclass\n\nimport tree_sitter as ts\n\n\n@dataclass(frozen=True, order=True)\nclass IntRange:\n    \"\"\"\n    A continuous range of integers from [start, stop).\n\n    For example [0, 2) would include the integers 0 and 1. This range could be\n    used to represent the first two characters of a document.\n    \"\"\"\n\n    start: int\n    \"\"\"The start of the range.\"\"\"\n    stop: int\n    \"\"\"The exclusive end of the range.\"\"\"\n\n    def __post_init__(self):\n        if self.stop < self.start:\n            raise ValueError(f\"A valid range must have {self.start=} <= {self.stop=}.\")\n\n    def contains(self, other: \"IntRange\") -> bool:\n        \"\"\"Check if this range fully contains another range.\"\"\"\n        return self.start <= other.start and self.stop >= other.stop\n\n    def overlaps(self, other: \"IntRange\") -> bool:\n        \"\"\"Check if the two ranges have a non-zero intersection.\"\"\"\n        return max(self.start, other.start) < min(self.stop, other.stop)\n\n\n# Commonly used alias for IntRange\nByteRange = IntRange\n\"\"\"References a range of bytes in file.\"\"\"\n\n\ndef get_nodes_in_brange(root_node: ts.Node, brange: ByteRange) -> list[ts.Node]:\n    \"\"\"\n    Find and return all valid tree-sitter nodes fully contained within the specified byte range.\n\n    This function traverses the syntax tree starting from the given root node and collects\n    all nodes whose byte ranges are fully contained within the specified byte range.\n    Nodes with type \"ERROR\" and their descendants are excluded from the results.\n    \"\"\"\n    results = list[ts.Node]()\n    worklist = [root_node]\n\n    while worklist:\n        n = worklist.pop()\n        if n.type == \"ERROR\" or n.type == \"module\":\n            if n.type == \"module\":\n                for c in n.children:\n                    worklist.append(c)\n            continue\n        n_range = ByteRange(n.start_byte, n.end_byte)\n        if brange.contains(n_range):\n            results.append(n)\n        if brange.overlaps(n_range):\n            for c in n.children:\n                worklist.append(c)\n\n    return results\n\ndef get_largest_node_in_brange(ts_node: ts.Node, brange: ByteRange, size_option: str = \"non-ws\") -> int:\n    \"\"\"\n    Return the size of the largest node (in bytes or non-whitespace char) in the given byte range.\n    \"\"\"\n    nodes = get_nodes_in_brange(ts_node, brange)\n    if not nodes:\n        return 0\n    if size_option == \"byte\":\n        node_sizes = [n.end_byte - n.start_byte for n in nodes]\n    elif size_option == \"non-ws\":\n        nws_cumsum = preprocess_nws_count(ts_node.text)\n        node_sizes = [get_nws_count(nws_cumsum, ByteRange(n.start_byte, n.end_byte)) for n in nodes]\n    else:\n        raise ValueError(f\"Unrecognized size option: {size_option}\")\n\n    return max(node_sizes)\n\ndef preprocess_nws_count(bstring: bytes) -> np.ndarray:\n    \"\"\"\n    Given a byte string, construct a cumulative sum array that keeps track of non-whitespace char count at each index.\n\n    This function performs a O(n) pre-computation and enables O(1) lookup of byte substring.\n    \"\"\"\n    whitespace_bytes = tuple(ord(x) for x in string.whitespace)\n    is_nws = np.array([x not in whitespace_bytes for x in bstring])\n    is_nws_cumsum = np.cumsum(is_nws)\n    nws_cumsum = np.concatenate([[0], is_nws_cumsum])\n    return nws_cumsum\n\ndef get_nws_count(nws_cumsum: np.ndarray, brange: ByteRange) -> int:\n    \"\"\"\n    Look up the non-whitespace char count within the given byte range.\n\n    Notes:\n        - need to convert int64 to int for json dump\n    \"\"\"\n    return int(nws_cumsum[brange.stop] - nws_cumsum[brange.start])\n\ndef get_nws_count_direct(code: str) -> int:\n    \"\"\"\n    O(n) computation of nonwhitespace count.\n\n    This function can be used as a verifier.\n    \"\"\"\n    return sum([1 for x in code if x not in string.whitespace])",
+    "content": "import tree_sitter as ts\n\nfrom astchunk.preprocessing import ByteRange\n\n\nclass ASTNode():\n    \"\"\"\n    A wrapper class for tree-sitter node.\n\n    This class provides additional information for each node, including:\n        - node_size: size of the node (in non-whitespace characters)\n        - ancestors: ancestors of the node (list of tree-sitter nodes)\n\n    Attributes:\n        - node: tree-sitter node\n        - node_size: size of the node (in non-whitespace characters)\n        - ancestors: ancestors of the node (list of tree-sitter nodes)\n    \"\"\"\n    def __init__(self, ts_node: ts.Node, node_size: int, ancestors: list[ts.Node] = []):\n        self.node = ts_node\n        self.node_size = node_size\n        self.ancestors = ancestors\n\n    @property\n    def bcode(self):\n        return self.node.text\n    \n    @property\n    def strcode(self):\n        return self.bcode.decode(\"utf8\")\n    \n    @property\n    def brange(self):\n        return ByteRange(self.node.start_byte, self.node.end_byte)\n    \n    @property\n    def start_line(self):\n        return self.node.start_point.row\n    \n    @property\n    def end_line(self):\n        return self.node.end_point.row\n    \n    @property\n    def start_col(self):\n        return self.node.start_point.column\n    \n    @property\n    def end_col(self):\n        return self.node.end_point.column\n    \n    @property\n    def size(self):\n        \"\"\"\n        Define size as the number of non-whitespace characters\n        \"\"\"\n        return self.node_size\n\n    @property\n    def length(self):\n        \"\"\"\n        Define length as the number of lines covered by the node\n        \"\"\"\n        return self.end_line - self.start_line + 1",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/astnode.py",
+      "chunk_size": 1185,
+      "line_count": 64,
+      "start_line_no": 0,
+      "end_line_no": 63,
+      "node_count": 3,
+      "symbols": [
+        "ASTNode",
+        "__init__",
+        "bcode",
+        "strcode",
+        "brange",
+        "start_line",
+        "end_line",
+        "start_col",
+        "end_col",
+        "size",
+        "length"
+      ],
+      "symbol_count": 11
+    }
+  },
+  {
+    "content": "import string\nimport numpy as np\nfrom dataclasses import dataclass\n\nimport tree_sitter as ts\n\n\n@dataclass(frozen=True, order=True)\nclass IntRange:\n    \"\"\"\n    A continuous range of integers from [start, stop).\n\n    For example [0, 2) would include the integers 0 and 1. This range could be\n    used to represent the first two characters of a document.\n    \"\"\"\n\n    start: int\n    \"\"\"The start of the range.\"\"\"\n    stop: int\n    \"\"\"The exclusive end of the range.\"\"\"\n\n    def __post_init__(self):\n        if self.stop < self.start:\n            raise ValueError(f\"A valid range must have {self.start=} <= {self.stop=}.\")\n\n    def contains(self, other: \"IntRange\") -> bool:\n        \"\"\"Check if this range fully contains another range.\"\"\"\n        return self.start <= other.start and self.stop >= other.stop\n\n    def overlaps(self, other: \"IntRange\") -> bool:\n        \"\"\"Check if the two ranges have a non-zero intersection.\"\"\"\n        return max(self.start, other.start) < min(self.stop, other.stop)\n\n\n# Commonly used alias for IntRange\nByteRange = IntRange\n\"\"\"References a range of bytes in file.\"\"\"\n\n\ndef get_nodes_in_brange(root_node: ts.Node, brange: ByteRange) -> list[ts.Node]:\n    \"\"\"\n    Find and return all valid tree-sitter nodes fully contained within the specified byte range.\n\n    This function traverses the syntax tree starting from the given root node and collects\n    all nodes whose byte ranges are fully contained within the specified byte range.\n    Nodes with type \"ERROR\" and their descendants are excluded from the results.\n    \"\"\"\n    results = list[ts.Node]()\n    worklist = [root_node]\n\n    while worklist:\n        n = worklist.pop()\n        if n.type == \"ERROR\" or n.type == \"module\":\n            if n.type == \"module\":\n                for c in n.children:\n                    worklist.append(c)\n            continue\n        n_range = ByteRange(n.start_byte, n.end_byte)\n        if brange.contains(n_range):\n            results.append(n)\n        if brange.overlaps(n_range):\n            for c in n.children:\n                worklist.append(c)\n\n    return results",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/preprocessing.py",
-      "chunk_size": 2902,
-      "line_count": 111,
+      "chunk_size": 1543,
+      "line_count": 65,
       "start_line_no": 0,
-      "end_line_no": 110,
-      "node_count": 13,
+      "end_line_no": 64,
+      "node_count": 9,
+      "symbols": [
+        "IntRange",
+        "__post_init__",
+        "contains",
+        "overlaps",
+        "get_nodes_in_brange"
+      ],
+      "symbol_count": 5
+    }
+  },
+  {
+    "content": "import string\nimport numpy as np\nfrom dataclasses import dataclass\n\nimport tree_sitter as ts\n\n\n@dataclass(frozen=True, order=True)\nclass IntRange:\n    \"\"\"\n    A continuous range of integers from [start, stop).\n\n    For example [0, 2) would include the integers 0 and 1. This range could be\n    used to represent the first two characters of a document.\n    \"\"\"\n\n    start: int\n    \"\"\"The start of the range.\"\"\"\n    stop: int\n    \"\"\"The exclusive end of the range.\"\"\"\n\n    def __post_init__(self):\n        if self.stop < self.start:\n            raise ValueError(f\"A valid range must have {self.start=} <= {self.stop=}.\")\n\n    def contains(self, other: \"IntRange\") -> bool:\n        \"\"\"Check if this range fully contains another range.\"\"\"\n        return self.start <= other.start and self.stop >= other.stop\n\n    def overlaps(self, other: \"IntRange\") -> bool:\n        \"\"\"Check if the two ranges have a non-zero intersection.\"\"\"\n        return max(self.start, other.start) < min(self.stop, other.stop)\n\n\n# Commonly used alias for IntRange\nByteRange = IntRange\n\"\"\"References a range of bytes in file.\"\"\"\n\n\ndef get_nodes_in_brange(root_node: ts.Node, brange: ByteRange) -> list[ts.Node]:\n    \"\"\"\n    Find and return all valid tree-sitter nodes fully contained within the specified byte range.\n\n    This function traverses the syntax tree starting from the given root node and collects\n    all nodes whose byte ranges are fully contained within the specified byte range.\n    Nodes with type \"ERROR\" and their descendants are excluded from the results.\n    \"\"\"\n    results = list[ts.Node]()\n    worklist = [root_node]\n\n    while worklist:\n        n = worklist.pop()\n        if n.type == \"ERROR\" or n.type == \"module\":\n            if n.type == \"module\":\n                for c in n.children:\n                    worklist.append(c)\n            continue\n        n_range = ByteRange(n.start_byte, n.end_byte)\n        if brange.contains(n_range):\n            results.append(n)\n        if brange.overlaps(n_range):\n            for c in n.children:\n                worklist.append(c)\n\n    return results\n\ndef get_largest_node_in_brange(ts_node: ts.Node, brange: ByteRange, size_option: str = \"non-ws\") -> int:\n    \"\"\"\n    Return the size of the largest node (in bytes or non-whitespace char) in the given byte range.\n    \"\"\"\n    nodes = get_nodes_in_brange(ts_node, brange)\n    if not nodes:\n        return 0\n    if size_option == \"byte\":\n        node_sizes = [n.end_byte - n.start_byte for n in nodes]\n    elif size_option == \"non-ws\":\n        nws_cumsum = preprocess_nws_count(ts_node.text)\n        node_sizes = [get_nws_count(nws_cumsum, ByteRange(n.start_byte, n.end_byte)) for n in nodes]\n    else:\n        raise ValueError(f\"Unrecognized size option: {size_option}\")\n\n    return max(node_sizes)",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/preprocessing.py",
+      "chunk_size": 2086,
+      "line_count": 82,
+      "start_line_no": 0,
+      "end_line_no": 81,
+      "node_count": 10,
       "symbols": [
         "IntRange",
         "__post_init__",
         "contains",
         "overlaps",
         "get_nodes_in_brange",
-        "get_largest_node_in_brange",
-        "preprocess_nws_count",
-        "get_nws_count",
-        "get_nws_count_direct"
+        "get_largest_node_in_brange"
       ],
-      "symbol_count": 9
+      "symbol_count": 6
     }
   },
   {
-    "content": "import string\nimport numpy as np\nfrom dataclasses import dataclass\n\nimport tree_sitter as ts\n\n\n@dataclass(frozen=True, order=True)\nclass IntRange:\n    \"\"\"\n    A continuous range of integers from [start, stop).\n\n    For example [0, 2) would include the integers 0 and 1. This range could be\n    used to represent the first two characters of a document.\n    \"\"\"\n\n    start: int\n    \"\"\"The start of the range.\"\"\"\n    stop: int\n    \"\"\"The exclusive end of the range.\"\"\"\n\n    def __post_init__(self):\n        if self.stop < self.start:\n            raise ValueError(f\"A valid range must have {self.start=} <= {self.stop=}.\")\n\n    def contains(self, other: \"IntRange\") -> bool:\n        \"\"\"Check if this range fully contains another range.\"\"\"\n        return self.start <= other.start and self.stop >= other.stop\n\n    def overlaps(self, other: \"IntRange\") -> bool:\n        \"\"\"Check if the two ranges have a non-zero intersection.\"\"\"\n        return max(self.start, other.start) < min(self.stop, other.stop)\n\n\n# Commonly used alias for IntRange\nByteRange = IntRange\n\"\"\"References a range of bytes in file.\"\"\"\n\n\ndef get_nodes_in_brange(root_node: ts.Node, brange: ByteRange) -> list[ts.Node]:\n    \"\"\"\n    Find and return all valid tree-sitter nodes fully contained within the specified byte range.\n\n    This function traverses the syntax tree starting from the given root node and collects\n    all nodes whose byte ranges are fully contained within the specified byte range.\n    Nodes with type \"ERROR\" and their descendants are excluded from the results.\n    \"\"\"\n    results = list[ts.Node]()\n    worklist = [root_node]\n\n    while worklist:\n        n = worklist.pop()\n        if n.type == \"ERROR\" or n.type == \"module\":\n            if n.type == \"module\":\n                for c in n.children:\n                    worklist.append(c)\n            continue\n        n_range = ByteRange(n.start_byte, n.end_byte)\n        if brange.contains(n_range):\n            results.append(n)\n        if brange.overlaps(n_range):\n            for c in n.children:\n                worklist.append(c)\n\n    return results\n\ndef get_largest_node_in_brange(ts_node: ts.Node, brange: ByteRange, size_option: str = \"non-ws\") -> int:\n    \"\"\"\n    Return the size of the largest node (in bytes or non-whitespace char) in the given byte range.\n    \"\"\"\n    nodes = get_nodes_in_brange(ts_node, brange)\n    if not nodes:\n        return 0\n    if size_option == \"byte\":\n        node_sizes = [n.end_byte - n.start_byte for n in nodes]\n    elif size_option == \"non-ws\":\n        nws_cumsum = preprocess_nws_count(ts_node.text)\n        node_sizes = [get_nws_count(nws_cumsum, ByteRange(n.start_byte, n.end_byte)) for n in nodes]\n    else:\n        raise ValueError(f\"Unrecognized size option: {size_option}\")\n\n    return max(node_sizes)\n\ndef preprocess_nws_count(bstring: bytes) -> np.ndarray:\n    \"\"\"\n    Given a byte string, construct a cumulative sum array that keeps track of non-whitespace char count at each index.\n\n    This function performs a O(n) pre-computation and enables O(1) lookup of byte substring.\n    \"\"\"\n    whitespace_bytes = tuple(ord(x) for x in string.whitespace)\n    is_nws = np.array([x not in whitespace_bytes for x in bstring])\n    is_nws_cumsum = np.cumsum(is_nws)\n    nws_cumsum = np.concatenate([[0], is_nws_cumsum])\n    return nws_cumsum\n\ndef get_nws_count(nws_cumsum: np.ndarray, brange: ByteRange) -> int:\n    \"\"\"\n    Look up the non-whitespace char count within the given byte range.\n\n    Notes:\n        - need to convert int64 to int for json dump\n    \"\"\"\n    return int(nws_cumsum[brange.stop] - nws_cumsum[brange.start])\n\ndef get_nws_count_direct(code: str) -> int:\n    \"\"\"\n    O(n) computation of nonwhitespace count.\n\n    This function can be used as a verifier.\n    \"\"\"\n    return sum([1 for x in code if x not in string.whitespace])",
+    "content": "def get_nodes_in_brange(root_node: ts.Node, brange: ByteRange) -> list[ts.Node]:\n    \"\"\"\n    Find and return all valid tree-sitter nodes fully contained within the specified byte range.\n\n    This function traverses the syntax tree starting from the given root node and collects\n    all nodes whose byte ranges are fully contained within the specified byte range.\n    Nodes with type \"ERROR\" and their descendants are excluded from the results.\n    \"\"\"\n    results = list[ts.Node]()\n    worklist = [root_node]\n\n    while worklist:\n        n = worklist.pop()\n        if n.type == \"ERROR\" or n.type == \"module\":\n            if n.type == \"module\":\n                for c in n.children:\n                    worklist.append(c)\n            continue\n        n_range = ByteRange(n.start_byte, n.end_byte)\n        if brange.contains(n_range):\n            results.append(n)\n        if brange.overlaps(n_range):\n            for c in n.children:\n                worklist.append(c)\n\n    return results\n\ndef get_largest_node_in_brange(ts_node: ts.Node, brange: ByteRange, size_option: str = \"non-ws\") -> int:\n    \"\"\"\n    Return the size of the largest node (in bytes or non-whitespace char) in the given byte range.\n    \"\"\"\n    nodes = get_nodes_in_brange(ts_node, brange)\n    if not nodes:\n        return 0\n    if size_option == \"byte\":\n        node_sizes = [n.end_byte - n.start_byte for n in nodes]\n    elif size_option == \"non-ws\":\n        nws_cumsum = preprocess_nws_count(ts_node.text)\n        node_sizes = [get_nws_count(nws_cumsum, ByteRange(n.start_byte, n.end_byte)) for n in nodes]\n    else:\n        raise ValueError(f\"Unrecognized size option: {size_option}\")\n\n    return max(node_sizes)\n\ndef preprocess_nws_count(bstring: bytes) -> np.ndarray:\n    \"\"\"\n    Given a byte string, construct a cumulative sum array that keeps track of non-whitespace char count at each index.\n\n    This function performs a O(n) pre-computation and enables O(1) lookup of byte substring.\n    \"\"\"\n    whitespace_bytes = tuple(ord(x) for x in string.whitespace)\n    is_nws = np.array([x not in whitespace_bytes for x in bstring])\n    is_nws_cumsum = np.cumsum(is_nws)\n    nws_cumsum = np.concatenate([[0], is_nws_cumsum])\n    return nws_cumsum",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/preprocessing.py",
-      "chunk_size": 2902,
-      "line_count": 111,
-      "start_line_no": 0,
-      "end_line_no": 110,
-      "node_count": 13,
+      "chunk_size": 1669,
+      "line_count": 55,
+      "start_line_no": 39,
+      "end_line_no": 93,
+      "node_count": 3,
       "symbols": [
-        "IntRange",
-        "__post_init__",
-        "contains",
-        "overlaps",
         "get_nodes_in_brange",
         "get_largest_node_in_brange",
+        "preprocess_nws_count"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def get_largest_node_in_brange(ts_node: ts.Node, brange: ByteRange, size_option: str = \"non-ws\") -> int:\n    \"\"\"\n    Return the size of the largest node (in bytes or non-whitespace char) in the given byte range.\n    \"\"\"\n    nodes = get_nodes_in_brange(ts_node, brange)\n    if not nodes:\n        return 0\n    if size_option == \"byte\":\n        node_sizes = [n.end_byte - n.start_byte for n in nodes]\n    elif size_option == \"non-ws\":\n        nws_cumsum = preprocess_nws_count(ts_node.text)\n        node_sizes = [get_nws_count(nws_cumsum, ByteRange(n.start_byte, n.end_byte)) for n in nodes]\n    else:\n        raise ValueError(f\"Unrecognized size option: {size_option}\")\n\n    return max(node_sizes)\n\ndef preprocess_nws_count(bstring: bytes) -> np.ndarray:\n    \"\"\"\n    Given a byte string, construct a cumulative sum array that keeps track of non-whitespace char count at each index.\n\n    This function performs a O(n) pre-computation and enables O(1) lookup of byte substring.\n    \"\"\"\n    whitespace_bytes = tuple(ord(x) for x in string.whitespace)\n    is_nws = np.array([x not in whitespace_bytes for x in bstring])\n    is_nws_cumsum = np.cumsum(is_nws)\n    nws_cumsum = np.concatenate([[0], is_nws_cumsum])\n    return nws_cumsum\n\ndef get_nws_count(nws_cumsum: np.ndarray, brange: ByteRange) -> int:\n    \"\"\"\n    Look up the non-whitespace char count within the given byte range.\n\n    Notes:\n        - need to convert int64 to int for json dump\n    \"\"\"\n    return int(nws_cumsum[brange.stop] - nws_cumsum[brange.start])",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/preprocessing.py",
+      "chunk_size": 1196,
+      "line_count": 37,
+      "start_line_no": 66,
+      "end_line_no": 102,
+      "node_count": 3,
+      "symbols": [
+        "get_largest_node_in_brange",
+        "preprocess_nws_count",
+        "get_nws_count"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def preprocess_nws_count(bstring: bytes) -> np.ndarray:\n    \"\"\"\n    Given a byte string, construct a cumulative sum array that keeps track of non-whitespace char count at each index.\n\n    This function performs a O(n) pre-computation and enables O(1) lookup of byte substring.\n    \"\"\"\n    whitespace_bytes = tuple(ord(x) for x in string.whitespace)\n    is_nws = np.array([x not in whitespace_bytes for x in bstring])\n    is_nws_cumsum = np.cumsum(is_nws)\n    nws_cumsum = np.concatenate([[0], is_nws_cumsum])\n    return nws_cumsum\n\ndef get_nws_count(nws_cumsum: np.ndarray, brange: ByteRange) -> int:\n    \"\"\"\n    Look up the non-whitespace char count within the given byte range.\n\n    Notes:\n        - need to convert int64 to int for json dump\n    \"\"\"\n    return int(nws_cumsum[brange.stop] - nws_cumsum[brange.start])\n\ndef get_nws_count_direct(code: str) -> int:\n    \"\"\"\n    O(n) computation of nonwhitespace count.\n\n    This function can be used as a verifier.\n    \"\"\"\n    return sum([1 for x in code if x not in string.whitespace])",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/preprocessing.py",
+      "chunk_size": 816,
+      "line_count": 28,
+      "start_line_no": 83,
+      "end_line_no": 110,
+      "node_count": 3,
+      "symbols": [
         "preprocess_nws_count",
         "get_nws_count",
         "get_nws_count_direct"
       ],
-      "symbol_count": 9
+      "symbol_count": 3
     }
   },
   {
-    "content": "\"\"\"\nDiscover source files under a directory and apply .gitignore-style filtering.\n\nOnly ``ignore_root/.gitignore`` is loaded (plus ``--extra-ignore`` lines), merged\ninto one pathspec. Per-subdirectory ``.gitignore`` files are not applied yet;\npaths are matched relative to ``ignore_root`` the same way as for a repository\nroot ignore file.\n\"\"\"\nfrom __future__ import annotations\n\nimport subprocess\nfrom pathlib import Path\nfrom typing import Iterable, List, Optional, Tuple\n\nfrom pathspec import PathSpec\n\n# Extension -> astchunk language name\nEXT_TO_LANG = {\n    \".py\": \"python\",\n    \".java\": \"java\",\n    \".cs\": \"csharp\",\n    \".ts\": \"typescript\",\n    \".tsx\": \"typescript\",\n}\n\n\ndef find_git_toplevel(start: Path) -> Optional[Path]:\n    \"\"\"Return git work tree root, or None if not in a git repo.\"\"\"\n    start = start.resolve()\n    try:\n        out = subprocess.run(\n            [\"git\", \"-C\", str(start), \"rev-parse\", \"--show-toplevel\"],\n            capture_output=True,\n            text=True,\n            check=False,\n        )\n        if out.returncode == 0 and out.stdout.strip():\n            return Path(out.stdout.strip()).resolve()\n    except (FileNotFoundError, OSError):\n        pass\n    cur = start\n    while True:\n        if (cur / \".git\").exists():\n            return cur.resolve()\n        if cur.parent == cur:\n            break\n        cur = cur.parent\n    return None\n\n\ndef _read_gitignore_lines(path: Path) -> List[str]:\n    text = path.read_text(encoding=\"utf-8\", errors=\"replace\")\n    return [line.rstrip(\"\\n\\r\") for line in text.splitlines()]\n\n\ndef _compile_gitignore_spec(lines: Iterable[str]) -> Optional[PathSpec]:\n    plines = [\n        ln\n        for ln in lines\n        if ln.strip() and not ln.lstrip().startswith(\"#\")\n    ]\n    if not plines:\n        return None\n    return PathSpec.from_lines(\"gitignore\", plines)\n\n\ndef load_gitignore_spec(\n    ignore_root: Path,\n    extra_patterns: Optional[List[str]] = None,\n) -> Optional[PathSpec]:\n    \"\"\"\n    Load patterns from ignore_root/.gitignore plus optional extra gitwildmatch lines.\n    \"\"\"\n    ignore_root = ignore_root.resolve()\n    merged: List[str] = []\n    gi = ignore_root / \".gitignore\"\n    if gi.is_file():\n        merged.extend(_read_gitignore_lines(gi))\n    if extra_patterns:\n        merged.extend(extra_patterns)\n    return _compile_gitignore_spec(merged)\n\n\ndef _path_under_git_dir(path: Path) -> bool:\n    return any(part == \".git\" for part in path.parts)\n\n\ndef is_path_ignored(\n    file_path: Path,\n    ignore_root: Path,\n    spec: Optional[PathSpec],\n) -> bool:\n    \"\"\"Whether file_path should be skipped when using the given spec (paths relative to ignore_root).\"\"\"\n    if spec is None:\n        return False\n    file_path = file_path.resolve()\n    ignore_root = ignore_root.resolve()\n    try:\n        rel = file_path.relative_to(ignore_root).as_posix()\n    except ValueError:\n        return False\n    if _path_under_git_dir(file_path):\n        return True\n    return spec.match_file(rel)\n\n\ndef collect_source_files(\n    scan_root: Path,\n    ignore_root: Path,\n    spec: Optional[PathSpec],\n    use_gitignore: bool,\n    language: Optional[str],\n) -> List[Tuple[Path, str]]:\n    \"\"\"\n    Sorted list of (absolute_path, language) for files to chunk.\n\n    language=None means auto-detect from extension; otherwise only that language's extensions.\n    \"\"\"\n    scan_root = scan_root.resolve()\n    ignore_root = ignore_root.resolve()\n    out: List[Tuple[Path, str]] = []\n\n    for path in sorted(scan_root.rglob(\"*\")):\n        if not path.is_file():\n            continue\n        if _path_under_git_dir(path):\n            continue\n        if use_gitignore and is_path_ignored(path, ignore_root, spec):\n            continue\n        suffix = path.suffix.lower()\n        lang = EXT_TO_LANG.get(suffix)\n        if language is not None:\n            if lang != language:\n                continue\n        elif lang is None:\n            continue\n        out.append((path.resolve(), lang))\n\n    out.sort(key=lambda t: str(t[0]))\n    return out\n\n\ndef resolve_ignore_root(scan_root: Path, override: Optional[Path]) -> Path:\n    if override is not None:\n        return override.resolve()\n    found = find_git_toplevel(scan_root)\n    if found is not None:\n        return found\n    return scan_root.resolve()",
+    "content": "def get_nws_count(nws_cumsum: np.ndarray, brange: ByteRange) -> int:\n    \"\"\"\n    Look up the non-whitespace char count within the given byte range.\n\n    Notes:\n        - need to convert int64 to int for json dump\n    \"\"\"\n    return int(nws_cumsum[brange.stop] - nws_cumsum[brange.start])\n\ndef get_nws_count_direct(code: str) -> int:\n    \"\"\"\n    O(n) computation of nonwhitespace count.\n\n    This function can be used as a verifier.\n    \"\"\"\n    return sum([1 for x in code if x not in string.whitespace])",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/preprocessing.py",
+      "chunk_size": 387,
+      "line_count": 16,
+      "start_line_no": 95,
+      "end_line_no": 110,
+      "node_count": 2,
+      "symbols": [
+        "get_nws_count",
+        "get_nws_count_direct"
+      ],
+      "symbol_count": 2
+    }
+  },
+  {
+    "content": "\"\"\"\nDiscover source files under a directory and apply .gitignore-style filtering.\n\nOnly ``ignore_root/.gitignore`` is loaded (plus ``--extra-ignore`` lines), merged\ninto one pathspec. Per-subdirectory ``.gitignore`` files are not applied yet;\npaths are matched relative to ``ignore_root`` the same way as for a repository\nroot ignore file.\n\"\"\"\nfrom __future__ import annotations\n\nimport subprocess\nfrom pathlib import Path\nfrom typing import Iterable, List, Optional, Tuple\n\nfrom pathspec import PathSpec\n\n# Extension -> astchunk language name\nEXT_TO_LANG = {\n    \".py\": \"python\",\n    \".java\": \"java\",\n    \".cs\": \"csharp\",\n    \".ts\": \"typescript\",\n    \".tsx\": \"typescript\",\n}\n\n\ndef find_git_toplevel(start: Path) -> Optional[Path]:\n    \"\"\"Return git work tree root, or None if not in a git repo.\"\"\"\n    start = start.resolve()\n    try:\n        out = subprocess.run(\n            [\"git\", \"-C\", str(start), \"rev-parse\", \"--show-toplevel\"],\n            capture_output=True,\n            text=True,\n            check=False,\n        )\n        if out.returncode == 0 and out.stdout.strip():\n            return Path(out.stdout.strip()).resolve()\n    except (FileNotFoundError, OSError):\n        pass\n    cur = start\n    while True:\n        if (cur / \".git\").exists():\n            return cur.resolve()\n        if cur.parent == cur:\n            break\n        cur = cur.parent\n    return None",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/repo_scan.py",
-      "chunk_size": 3214,
-      "line_count": 149,
+      "chunk_size": 1033,
+      "line_count": 48,
       "start_line_no": 0,
-      "end_line_no": 148,
-      "node_count": 16,
+      "end_line_no": 47,
+      "node_count": 9,
+      "symbols": [
+        "find_git_toplevel"
+      ],
+      "symbol_count": 1
+    }
+  },
+  {
+    "content": "\"\"\"\nDiscover source files under a directory and apply .gitignore-style filtering.\n\nOnly ``ignore_root/.gitignore`` is loaded (plus ``--extra-ignore`` lines), merged\ninto one pathspec. Per-subdirectory ``.gitignore`` files are not applied yet;\npaths are matched relative to ``ignore_root`` the same way as for a repository\nroot ignore file.\n\"\"\"\nfrom __future__ import annotations\n\nimport subprocess\nfrom pathlib import Path\nfrom typing import Iterable, List, Optional, Tuple\n\nfrom pathspec import PathSpec\n\n# Extension -> astchunk language name\nEXT_TO_LANG = {\n    \".py\": \"python\",\n    \".java\": \"java\",\n    \".cs\": \"csharp\",\n    \".ts\": \"typescript\",\n    \".tsx\": \"typescript\",\n}\n\n\ndef find_git_toplevel(start: Path) -> Optional[Path]:\n    \"\"\"Return git work tree root, or None if not in a git repo.\"\"\"\n    start = start.resolve()\n    try:\n        out = subprocess.run(\n            [\"git\", \"-C\", str(start), \"rev-parse\", \"--show-toplevel\"],\n            capture_output=True,\n            text=True,\n            check=False,\n        )\n        if out.returncode == 0 and out.stdout.strip():\n            return Path(out.stdout.strip()).resolve()\n    except (FileNotFoundError, OSError):\n        pass\n    cur = start\n    while True:\n        if (cur / \".git\").exists():\n            return cur.resolve()\n        if cur.parent == cur:\n            break\n        cur = cur.parent\n    return None\n\n\ndef _read_gitignore_lines(path: Path) -> List[str]:\n    text = path.read_text(encoding=\"utf-8\", errors=\"replace\")\n    return [line.rstrip(\"\\n\\r\") for line in text.splitlines()]",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/repo_scan.py",
+      "chunk_size": 1187,
+      "line_count": 53,
+      "start_line_no": 0,
+      "end_line_no": 52,
+      "node_count": 10,
+      "symbols": [
+        "find_git_toplevel",
+        "_read_gitignore_lines"
+      ],
+      "symbol_count": 2
+    }
+  },
+  {
+    "content": "def find_git_toplevel(start: Path) -> Optional[Path]:\n    \"\"\"Return git work tree root, or None if not in a git repo.\"\"\"\n    start = start.resolve()\n    try:\n        out = subprocess.run(\n            [\"git\", \"-C\", str(start), \"rev-parse\", \"--show-toplevel\"],\n            capture_output=True,\n            text=True,\n            check=False,\n        )\n        if out.returncode == 0 and out.stdout.strip():\n            return Path(out.stdout.strip()).resolve()\n    except (FileNotFoundError, OSError):\n        pass\n    cur = start\n    while True:\n        if (cur / \".git\").exists():\n            return cur.resolve()\n        if cur.parent == cur:\n            break\n        cur = cur.parent\n    return None\n\n\ndef _read_gitignore_lines(path: Path) -> List[str]:\n    text = path.read_text(encoding=\"utf-8\", errors=\"replace\")\n    return [line.rstrip(\"\\n\\r\") for line in text.splitlines()]\n\n\ndef _compile_gitignore_spec(lines: Iterable[str]) -> Optional[PathSpec]:\n    plines = [\n        ln\n        for ln in lines\n        if ln.strip() and not ln.lstrip().startswith(\"#\")\n    ]\n    if not plines:\n        return None\n    return PathSpec.from_lines(\"gitignore\", plines)",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/repo_scan.py",
+      "chunk_size": 825,
+      "line_count": 38,
+      "start_line_no": 26,
+      "end_line_no": 63,
+      "node_count": 3,
       "symbols": [
         "find_git_toplevel",
         "_read_gitignore_lines",
+        "_compile_gitignore_spec"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def _read_gitignore_lines(path: Path) -> List[str]:\n    text = path.read_text(encoding=\"utf-8\", errors=\"replace\")\n    return [line.rstrip(\"\\n\\r\") for line in text.splitlines()]\n\n\ndef _compile_gitignore_spec(lines: Iterable[str]) -> Optional[PathSpec]:\n    plines = [\n        ln\n        for ln in lines\n        if ln.strip() and not ln.lstrip().startswith(\"#\")\n    ]\n    if not plines:\n        return None\n    return PathSpec.from_lines(\"gitignore\", plines)\n\n\ndef load_gitignore_spec(\n    ignore_root: Path,\n    extra_patterns: Optional[List[str]] = None,\n) -> Optional[PathSpec]:\n    \"\"\"\n    Load patterns from ignore_root/.gitignore plus optional extra gitwildmatch lines.\n    \"\"\"\n    ignore_root = ignore_root.resolve()\n    merged: List[str] = []\n    gi = ignore_root / \".gitignore\"\n    if gi.is_file():\n        merged.extend(_read_gitignore_lines(gi))\n    if extra_patterns:\n        merged.extend(extra_patterns)\n    return _compile_gitignore_spec(merged)",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/repo_scan.py",
+      "chunk_size": 755,
+      "line_count": 31,
+      "start_line_no": 50,
+      "end_line_no": 80,
+      "node_count": 3,
+      "symbols": [
+        "_read_gitignore_lines",
+        "_compile_gitignore_spec",
+        "load_gitignore_spec"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def _compile_gitignore_spec(lines: Iterable[str]) -> Optional[PathSpec]:\n    plines = [\n        ln\n        for ln in lines\n        if ln.strip() and not ln.lstrip().startswith(\"#\")\n    ]\n    if not plines:\n        return None\n    return PathSpec.from_lines(\"gitignore\", plines)\n\n\ndef load_gitignore_spec(\n    ignore_root: Path,\n    extra_patterns: Optional[List[str]] = None,\n) -> Optional[PathSpec]:\n    \"\"\"\n    Load patterns from ignore_root/.gitignore plus optional extra gitwildmatch lines.\n    \"\"\"\n    ignore_root = ignore_root.resolve()\n    merged: List[str] = []\n    gi = ignore_root / \".gitignore\"\n    if gi.is_file():\n        merged.extend(_read_gitignore_lines(gi))\n    if extra_patterns:\n        merged.extend(extra_patterns)\n    return _compile_gitignore_spec(merged)\n\n\ndef _path_under_git_dir(path: Path) -> bool:\n    return any(part == \".git\" for part in path.parts)",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/repo_scan.py",
+      "chunk_size": 683,
+      "line_count": 30,
+      "start_line_no": 55,
+      "end_line_no": 84,
+      "node_count": 3,
+      "symbols": [
         "_compile_gitignore_spec",
         "load_gitignore_spec",
+        "_path_under_git_dir"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def load_gitignore_spec(\n    ignore_root: Path,\n    extra_patterns: Optional[List[str]] = None,\n) -> Optional[PathSpec]:\n    \"\"\"\n    Load patterns from ignore_root/.gitignore plus optional extra gitwildmatch lines.\n    \"\"\"\n    ignore_root = ignore_root.resolve()\n    merged: List[str] = []\n    gi = ignore_root / \".gitignore\"\n    if gi.is_file():\n        merged.extend(_read_gitignore_lines(gi))\n    if extra_patterns:\n        merged.extend(extra_patterns)\n    return _compile_gitignore_spec(merged)\n\n\ndef _path_under_git_dir(path: Path) -> bool:\n    return any(part == \".git\" for part in path.parts)\n\n\ndef is_path_ignored(\n    file_path: Path,\n    ignore_root: Path,\n    spec: Optional[PathSpec],\n) -> bool:\n    \"\"\"Whether file_path should be skipped when using the given spec (paths relative to ignore_root).\"\"\"\n    if spec is None:\n        return False\n    file_path = file_path.resolve()\n    ignore_root = ignore_root.resolve()\n    try:\n        rel = file_path.relative_to(ignore_root).as_posix()\n    except ValueError:\n        return False\n    if _path_under_git_dir(file_path):\n        return True\n    return spec.match_file(rel)",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/repo_scan.py",
+      "chunk_size": 886,
+      "line_count": 38,
+      "start_line_no": 66,
+      "end_line_no": 103,
+      "node_count": 3,
+      "symbols": [
+        "load_gitignore_spec",
         "_path_under_git_dir",
+        "is_path_ignored"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def _path_under_git_dir(path: Path) -> bool:\n    return any(part == \".git\" for part in path.parts)\n\n\ndef is_path_ignored(\n    file_path: Path,\n    ignore_root: Path,\n    spec: Optional[PathSpec],\n) -> bool:\n    \"\"\"Whether file_path should be skipped when using the given spec (paths relative to ignore_root).\"\"\"\n    if spec is None:\n        return False\n    file_path = file_path.resolve()\n    ignore_root = ignore_root.resolve()\n    try:\n        rel = file_path.relative_to(ignore_root).as_posix()\n    except ValueError:\n        return False\n    if _path_under_git_dir(file_path):\n        return True\n    return spec.match_file(rel)\n\n\ndef collect_source_files(\n    scan_root: Path,\n    ignore_root: Path,\n    spec: Optional[PathSpec],\n    use_gitignore: bool,\n    language: Optional[str],\n) -> List[Tuple[Path, str]]:\n    \"\"\"\n    Sorted list of (absolute_path, language) for files to chunk.\n\n    language=None means auto-detect from extension; otherwise only that language's extensions.\n    \"\"\"\n    scan_root = scan_root.resolve()\n    ignore_root = ignore_root.resolve()\n    out: List[Tuple[Path, str]] = []\n\n    for path in sorted(scan_root.rglob(\"*\")):\n        if not path.is_file():\n            continue\n        if _path_under_git_dir(path):\n            continue\n        if use_gitignore and is_path_ignored(path, ignore_root, spec):\n            continue\n        suffix = path.suffix.lower()\n        lang = EXT_TO_LANG.get(suffix)\n        if language is not None:\n            if lang != language:\n                continue\n        elif lang is None:\n            continue\n        out.append((path.resolve(), lang))\n\n    out.sort(key=lambda t: str(t[0]))\n    return out",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/repo_scan.py",
+      "chunk_size": 1226,
+      "line_count": 57,
+      "start_line_no": 83,
+      "end_line_no": 139,
+      "node_count": 3,
+      "symbols": [
+        "_path_under_git_dir",
+        "is_path_ignored",
+        "collect_source_files"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def is_path_ignored(\n    file_path: Path,\n    ignore_root: Path,\n    spec: Optional[PathSpec],\n) -> bool:\n    \"\"\"Whether file_path should be skipped when using the given spec (paths relative to ignore_root).\"\"\"\n    if spec is None:\n        return False\n    file_path = file_path.resolve()\n    ignore_root = ignore_root.resolve()\n    try:\n        rel = file_path.relative_to(ignore_root).as_posix()\n    except ValueError:\n        return False\n    if _path_under_git_dir(file_path):\n        return True\n    return spec.match_file(rel)\n\n\ndef collect_source_files(\n    scan_root: Path,\n    ignore_root: Path,\n    spec: Optional[PathSpec],\n    use_gitignore: bool,\n    language: Optional[str],\n) -> List[Tuple[Path, str]]:\n    \"\"\"\n    Sorted list of (absolute_path, language) for files to chunk.\n\n    language=None means auto-detect from extension; otherwise only that language's extensions.\n    \"\"\"\n    scan_root = scan_root.resolve()\n    ignore_root = ignore_root.resolve()\n    out: List[Tuple[Path, str]] = []\n\n    for path in sorted(scan_root.rglob(\"*\")):\n        if not path.is_file():\n            continue\n        if _path_under_git_dir(path):\n            continue\n        if use_gitignore and is_path_ignored(path, ignore_root, spec):\n            continue\n        suffix = path.suffix.lower()\n        lang = EXT_TO_LANG.get(suffix)\n        if language is not None:\n            if lang != language:\n                continue\n        elif lang is None:\n            continue\n        out.append((path.resolve(), lang))\n\n    out.sort(key=lambda t: str(t[0]))\n    return out\n\n\ndef resolve_ignore_root(scan_root: Path, override: Optional[Path]) -> Path:\n    if override is not None:\n        return override.resolve()\n    found = find_git_toplevel(scan_root)\n    if found is not None:\n        return found\n    return scan_root.resolve()",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/repo_scan.py",
+      "chunk_size": 1344,
+      "line_count": 62,
+      "start_line_no": 87,
+      "end_line_no": 148,
+      "node_count": 3,
+      "symbols": [
         "is_path_ignored",
         "collect_source_files",
         "resolve_ignore_root"
       ],
-      "symbol_count": 8
+      "symbol_count": 3
     }
   },
   {
-    "content": "\"\"\"\nDiscover source files under a directory and apply .gitignore-style filtering.\n\nOnly ``ignore_root/.gitignore`` is loaded (plus ``--extra-ignore`` lines), merged\ninto one pathspec. Per-subdirectory ``.gitignore`` files are not applied yet;\npaths are matched relative to ``ignore_root`` the same way as for a repository\nroot ignore file.\n\"\"\"\nfrom __future__ import annotations\n\nimport subprocess\nfrom pathlib import Path\nfrom typing import Iterable, List, Optional, Tuple\n\nfrom pathspec import PathSpec\n\n# Extension -> astchunk language name\nEXT_TO_LANG = {\n    \".py\": \"python\",\n    \".java\": \"java\",\n    \".cs\": \"csharp\",\n    \".ts\": \"typescript\",\n    \".tsx\": \"typescript\",\n}\n\n\ndef find_git_toplevel(start: Path) -> Optional[Path]:\n    \"\"\"Return git work tree root, or None if not in a git repo.\"\"\"\n    start = start.resolve()\n    try:\n        out = subprocess.run(\n            [\"git\", \"-C\", str(start), \"rev-parse\", \"--show-toplevel\"],\n            capture_output=True,\n            text=True,\n            check=False,\n        )\n        if out.returncode == 0 and out.stdout.strip():\n            return Path(out.stdout.strip()).resolve()\n    except (FileNotFoundError, OSError):\n        pass\n    cur = start\n    while True:\n        if (cur / \".git\").exists():\n            return cur.resolve()\n        if cur.parent == cur:\n            break\n        cur = cur.parent\n    return None\n\n\ndef _read_gitignore_lines(path: Path) -> List[str]:\n    text = path.read_text(encoding=\"utf-8\", errors=\"replace\")\n    return [line.rstrip(\"\\n\\r\") for line in text.splitlines()]\n\n\ndef _compile_gitignore_spec(lines: Iterable[str]) -> Optional[PathSpec]:\n    plines = [\n        ln\n        for ln in lines\n        if ln.strip() and not ln.lstrip().startswith(\"#\")\n    ]\n    if not plines:\n        return None\n    return PathSpec.from_lines(\"gitignore\", plines)\n\n\ndef load_gitignore_spec(\n    ignore_root: Path,\n    extra_patterns: Optional[List[str]] = None,\n) -> Optional[PathSpec]:\n    \"\"\"\n    Load patterns from ignore_root/.gitignore plus optional extra gitwildmatch lines.\n    \"\"\"\n    ignore_root = ignore_root.resolve()\n    merged: List[str] = []\n    gi = ignore_root / \".gitignore\"\n    if gi.is_file():\n        merged.extend(_read_gitignore_lines(gi))\n    if extra_patterns:\n        merged.extend(extra_patterns)\n    return _compile_gitignore_spec(merged)\n\n\ndef _path_under_git_dir(path: Path) -> bool:\n    return any(part == \".git\" for part in path.parts)\n\n\ndef is_path_ignored(\n    file_path: Path,\n    ignore_root: Path,\n    spec: Optional[PathSpec],\n) -> bool:\n    \"\"\"Whether file_path should be skipped when using the given spec (paths relative to ignore_root).\"\"\"\n    if spec is None:\n        return False\n    file_path = file_path.resolve()\n    ignore_root = ignore_root.resolve()\n    try:\n        rel = file_path.relative_to(ignore_root).as_posix()\n    except ValueError:\n        return False\n    if _path_under_git_dir(file_path):\n        return True\n    return spec.match_file(rel)\n\n\ndef collect_source_files(\n    scan_root: Path,\n    ignore_root: Path,\n    spec: Optional[PathSpec],\n    use_gitignore: bool,\n    language: Optional[str],\n) -> List[Tuple[Path, str]]:\n    \"\"\"\n    Sorted list of (absolute_path, language) for files to chunk.\n\n    language=None means auto-detect from extension; otherwise only that language's extensions.\n    \"\"\"\n    scan_root = scan_root.resolve()\n    ignore_root = ignore_root.resolve()\n    out: List[Tuple[Path, str]] = []\n\n    for path in sorted(scan_root.rglob(\"*\")):\n        if not path.is_file():\n            continue\n        if _path_under_git_dir(path):\n            continue\n        if use_gitignore and is_path_ignored(path, ignore_root, spec):\n            continue\n        suffix = path.suffix.lower()\n        lang = EXT_TO_LANG.get(suffix)\n        if language is not None:\n            if lang != language:\n                continue\n        elif lang is None:\n            continue\n        out.append((path.resolve(), lang))\n\n    out.sort(key=lambda t: str(t[0]))\n    return out\n\n\ndef resolve_ignore_root(scan_root: Path, override: Optional[Path]) -> Path:\n    if override is not None:\n        return override.resolve()\n    found = find_git_toplevel(scan_root)\n    if found is not None:\n        return found\n    return scan_root.resolve()",
+    "content": "def collect_source_files(\n    scan_root: Path,\n    ignore_root: Path,\n    spec: Optional[PathSpec],\n    use_gitignore: bool,\n    language: Optional[str],\n) -> List[Tuple[Path, str]]:\n    \"\"\"\n    Sorted list of (absolute_path, language) for files to chunk.\n\n    language=None means auto-detect from extension; otherwise only that language's extensions.\n    \"\"\"\n    scan_root = scan_root.resolve()\n    ignore_root = ignore_root.resolve()\n    out: List[Tuple[Path, str]] = []\n\n    for path in sorted(scan_root.rglob(\"*\")):\n        if not path.is_file():\n            continue\n        if _path_under_git_dir(path):\n            continue\n        if use_gitignore and is_path_ignored(path, ignore_root, spec):\n            continue\n        suffix = path.suffix.lower()\n        lang = EXT_TO_LANG.get(suffix)\n        if language is not None:\n            if lang != language:\n                continue\n        elif lang is None:\n            continue\n        out.append((path.resolve(), lang))\n\n    out.sort(key=lambda t: str(t[0]))\n    return out\n\n\ndef resolve_ignore_root(scan_root: Path, override: Optional[Path]) -> Path:\n    if override is not None:\n        return override.resolve()\n    found = find_git_toplevel(scan_root)\n    if found is not None:\n        return found\n    return scan_root.resolve()",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/repo_scan.py",
-      "chunk_size": 3214,
-      "line_count": 149,
-      "start_line_no": 0,
+      "chunk_size": 938,
+      "line_count": 43,
+      "start_line_no": 106,
       "end_line_no": 148,
-      "node_count": 16,
+      "node_count": 2,
       "symbols": [
-        "find_git_toplevel",
-        "_read_gitignore_lines",
-        "_compile_gitignore_spec",
-        "load_gitignore_spec",
-        "_path_under_git_dir",
-        "is_path_ignored",
         "collect_source_files",
         "resolve_ignore_root"
       ],
-      "symbol_count": 8
+      "symbol_count": 2
     }
   },
   {
-    "content": "\"\"\"\nTree-sitter-backed symbol metadata.\n\nLine numbers follow tree-sitter's coordinate system (0-based row indices), consistent\nwith ``start_line_no`` / ``end_line_no`` on chunks.\n\n``symbols`` lists the *simple names* of definitions whose line span **overlaps** the\nchunk's span (inclusive on both ends). Two ranges [a, b] and [c, d] overlap iff\nnot (b < c or d < a).\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom typing import FrozenSet, List, Optional\n\nimport tree_sitter as ts\n\n# (node_type, field_name_for_name) \u2014 field_name None means use heuristics\n_PYTHON_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"function_definition\", \"name\"),\n    (\"class_definition\", \"name\"),\n)\n\n_JAVA_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"method_declaration\", \"name\"),\n    (\"constructor_declaration\", \"name\"),\n    (\"class_declaration\", \"name\"),\n    (\"interface_declaration\", \"name\"),\n    (\"enum_declaration\", \"name\"),\n)\n\n_CSHARP_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"method_declaration\", \"name\"),\n    (\"constructor_declaration\", \"name\"),\n    (\"class_declaration\", \"name\"),\n    (\"struct_declaration\", \"name\"),\n    (\"interface_declaration\", \"name\"),\n    (\"enum_declaration\", \"name\"),\n    (\"record_declaration\", \"name\"),\n    (\"delegate_declaration\", \"name\"),\n)\n\n_TYPESCRIPT_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"function_declaration\", \"name\"),\n    (\"function_signature\", \"name\"),\n    (\"class_declaration\", \"name\"),\n    (\"interface_declaration\", \"name\"),\n    (\"type_alias_declaration\", \"name\"),\n    (\"enum_declaration\", \"name\"),\n    (\"method_definition\", \"name\"),\n    (\"method_signature\", \"name\"),\n)\n\n_DEF_CONFIG: dict[str, tuple[tuple[str, Optional[str]], ...]] = {\n    \"python\": _PYTHON_DEFS,\n    \"java\": _JAVA_DEFS,\n    \"csharp\": _CSHARP_DEFS,\n    \"typescript\": _TYPESCRIPT_DEFS,\n}\n\n\ndef definition_node_types(language: str) -> FrozenSet[str]:\n    \"\"\"Node types treated as named definitions for chunking strategies.\"\"\"\n    cfg = _DEF_CONFIG.get(language)\n    if not cfg:\n        return frozenset()\n    return frozenset(t for t, _ in cfg)\n\n\n@dataclass(frozen=True)\nclass DefinitionSpan:\n    name: str\n    start_line: int\n    end_line: int\n    node_type: str\n\n\ndef _first_identifier_text(node: ts.Node) -> Optional[str]:\n    if node.type == \"identifier\" and node.text:\n        return node.text.decode(\"utf-8\")\n    for child in node.children:\n        found = _first_identifier_text(child)\n        if found:\n            return found\n    return None\n\n\ndef _extract_def_name(node: ts.Node, field_name: Optional[str]) -> Optional[str]:\n    if field_name:\n        name_node = node.child_by_field_name(field_name)\n        if name_node is not None and name_node.text:\n            return name_node.text.decode(\"utf-8\")\n    # Fallback: some grammars use identifier child\n    return _first_identifier_text(node)\n\n\ndef _walk_definitions(\n    node: ts.Node,\n    pairs: tuple[tuple[str, Optional[str]], ...],\n    out: List[DefinitionSpan],\n) -> None:\n    for ntype, fname in pairs:\n        if node.type == ntype:\n            name = _extract_def_name(node, fname)\n            if name:\n                out.append(\n                    DefinitionSpan(\n                        name=name,\n                        start_line=node.start_point.row,\n                        end_line=node.end_point.row,\n                        node_type=ntype,\n                    )\n                )\n            break\n    for child in node.children:\n        _walk_definitions(child, pairs, out)\n\n\ndef collect_definitions(root: ts.Node, language: str) -> List[DefinitionSpan]:\n    \"\"\"Depth-first list of named definitions in the tree (preorder by visit).\"\"\"\n    pairs = _DEF_CONFIG.get(language)\n    if not pairs:\n        return []\n    out: List[DefinitionSpan] = []\n    _walk_definitions(root, pairs, out)\n    return out\n\n\ndef symbols_overlapping_chunk(\n    definitions: List[DefinitionSpan],\n    chunk_start_line: int,\n    chunk_end_line: int,\n) -> List[str]:\n    \"\"\"\n    Names of definitions whose line range overlaps the chunk (inclusive), stable-sorted unique.\n    \"\"\"\n    seen: set[str] = set()\n    ordered: List[str] = []\n    for d in definitions:\n        if chunk_end_line < d.start_line or d.end_line < chunk_start_line:\n            continue\n        if d.name not in seen:\n            seen.add(d.name)\n            ordered.append(d.name)\n    return ordered\n\n\ndef is_definition_node(node: ts.Node, language: str) -> bool:\n    return node.type in definition_node_types(language)",
+    "content": "\"\"\"\nTree-sitter-backed symbol metadata.\n\nLine numbers follow tree-sitter's coordinate system (0-based row indices), consistent\nwith ``start_line_no`` / ``end_line_no`` on chunks.\n\n``symbols`` lists the *simple names* of definitions whose line span **overlaps** the\nchunk's span (inclusive on both ends). Two ranges [a, b] and [c, d] overlap iff\nnot (b < c or d < a).\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom typing import FrozenSet, List, Optional\n\nimport tree_sitter as ts\n\n# (node_type, field_name_for_name) \u2014 field_name None means use heuristics\n_PYTHON_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"function_definition\", \"name\"),\n    (\"class_definition\", \"name\"),\n)\n\n_JAVA_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"method_declaration\", \"name\"),\n    (\"constructor_declaration\", \"name\"),\n    (\"class_declaration\", \"name\"),\n    (\"interface_declaration\", \"name\"),\n    (\"enum_declaration\", \"name\"),\n)\n\n_CSHARP_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"method_declaration\", \"name\"),\n    (\"constructor_declaration\", \"name\"),\n    (\"class_declaration\", \"name\"),\n    (\"struct_declaration\", \"name\"),\n    (\"interface_declaration\", \"name\"),\n    (\"enum_declaration\", \"name\"),\n    (\"record_declaration\", \"name\"),\n    (\"delegate_declaration\", \"name\"),\n)\n\n_TYPESCRIPT_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"function_declaration\", \"name\"),\n    (\"function_signature\", \"name\"),\n    (\"class_declaration\", \"name\"),\n    (\"interface_declaration\", \"name\"),\n    (\"type_alias_declaration\", \"name\"),\n    (\"enum_declaration\", \"name\"),\n    (\"method_definition\", \"name\"),\n    (\"method_signature\", \"name\"),\n)\n\n_DEF_CONFIG: dict[str, tuple[tuple[str, Optional[str]], ...]] = {\n    \"python\": _PYTHON_DEFS,\n    \"java\": _JAVA_DEFS,\n    \"csharp\": _CSHARP_DEFS,\n    \"typescript\": _TYPESCRIPT_DEFS,\n}\n\n\ndef definition_node_types(language: str) -> FrozenSet[str]:\n    \"\"\"Node types treated as named definitions for chunking strategies.\"\"\"\n    cfg = _DEF_CONFIG.get(language)\n    if not cfg:\n        return frozenset()\n    return frozenset(t for t, _ in cfg)",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/symbols.py",
-      "chunk_size": 3468,
-      "line_count": 150,
+      "chunk_size": 1762,
+      "line_count": 68,
       "start_line_no": 0,
-      "end_line_no": 149,
-      "node_count": 19,
+      "end_line_no": 67,
+      "node_count": 12,
+      "symbols": [
+        "definition_node_types"
+      ],
+      "symbol_count": 1
+    }
+  },
+  {
+    "content": "\"\"\"\nTree-sitter-backed symbol metadata.\n\nLine numbers follow tree-sitter's coordinate system (0-based row indices), consistent\nwith ``start_line_no`` / ``end_line_no`` on chunks.\n\n``symbols`` lists the *simple names* of definitions whose line span **overlaps** the\nchunk's span (inclusive on both ends). Two ranges [a, b] and [c, d] overlap iff\nnot (b < c or d < a).\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom typing import FrozenSet, List, Optional\n\nimport tree_sitter as ts\n\n# (node_type, field_name_for_name) \u2014 field_name None means use heuristics\n_PYTHON_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"function_definition\", \"name\"),\n    (\"class_definition\", \"name\"),\n)\n\n_JAVA_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"method_declaration\", \"name\"),\n    (\"constructor_declaration\", \"name\"),\n    (\"class_declaration\", \"name\"),\n    (\"interface_declaration\", \"name\"),\n    (\"enum_declaration\", \"name\"),\n)\n\n_CSHARP_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"method_declaration\", \"name\"),\n    (\"constructor_declaration\", \"name\"),\n    (\"class_declaration\", \"name\"),\n    (\"struct_declaration\", \"name\"),\n    (\"interface_declaration\", \"name\"),\n    (\"enum_declaration\", \"name\"),\n    (\"record_declaration\", \"name\"),\n    (\"delegate_declaration\", \"name\"),\n)\n\n_TYPESCRIPT_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"function_declaration\", \"name\"),\n    (\"function_signature\", \"name\"),\n    (\"class_declaration\", \"name\"),\n    (\"interface_declaration\", \"name\"),\n    (\"type_alias_declaration\", \"name\"),\n    (\"enum_declaration\", \"name\"),\n    (\"method_definition\", \"name\"),\n    (\"method_signature\", \"name\"),\n)\n\n_DEF_CONFIG: dict[str, tuple[tuple[str, Optional[str]], ...]] = {\n    \"python\": _PYTHON_DEFS,\n    \"java\": _JAVA_DEFS,\n    \"csharp\": _CSHARP_DEFS,\n    \"typescript\": _TYPESCRIPT_DEFS,\n}\n\n\ndef definition_node_types(language: str) -> FrozenSet[str]:\n    \"\"\"Node types treated as named definitions for chunking strategies.\"\"\"\n    cfg = _DEF_CONFIG.get(language)\n    if not cfg:\n        return frozenset()\n    return frozenset(t for t, _ in cfg)\n\n\n@dataclass(frozen=True)\nclass DefinitionSpan:\n    name: str\n    start_line: int\n    end_line: int\n    node_type: str",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/symbols.py",
+      "chunk_size": 1852,
+      "line_count": 76,
+      "start_line_no": 0,
+      "end_line_no": 75,
+      "node_count": 13,
+      "symbols": [
+        "definition_node_types",
+        "DefinitionSpan"
+      ],
+      "symbol_count": 2
+    }
+  },
+  {
+    "content": "def definition_node_types(language: str) -> FrozenSet[str]:\n    \"\"\"Node types treated as named definitions for chunking strategies.\"\"\"\n    cfg = _DEF_CONFIG.get(language)\n    if not cfg:\n        return frozenset()\n    return frozenset(t for t, _ in cfg)\n\n\n@dataclass(frozen=True)\nclass DefinitionSpan:\n    name: str\n    start_line: int\n    end_line: int\n    node_type: str\n\n\ndef _first_identifier_text(node: ts.Node) -> Optional[str]:\n    if node.type == \"identifier\" and node.text:\n        return node.text.decode(\"utf-8\")\n    for child in node.children:\n        found = _first_identifier_text(child)\n        if found:\n            return found\n    return None",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/symbols.py",
+      "chunk_size": 503,
+      "line_count": 24,
+      "start_line_no": 62,
+      "end_line_no": 85,
+      "node_count": 3,
       "symbols": [
         "definition_node_types",
         "DefinitionSpan",
+        "_first_identifier_text"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "@dataclass(frozen=True)\nclass DefinitionSpan:\n    name: str\n    start_line: int\n    end_line: int\n    node_type: str\n\n\ndef _first_identifier_text(node: ts.Node) -> Optional[str]:\n    if node.type == \"identifier\" and node.text:\n        return node.text.decode(\"utf-8\")\n    for child in node.children:\n        found = _first_identifier_text(child)\n        if found:\n            return found\n    return None\n\n\ndef _extract_def_name(node: ts.Node, field_name: Optional[str]) -> Optional[str]:\n    if field_name:\n        name_node = node.child_by_field_name(field_name)\n        if name_node is not None and name_node.text:\n            return name_node.text.decode(\"utf-8\")\n    # Fallback: some grammars use identifier child\n    return _first_identifier_text(node)",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/symbols.py",
+      "chunk_size": 584,
+      "line_count": 25,
+      "start_line_no": 70,
+      "end_line_no": 94,
+      "node_count": 3,
+      "symbols": [
+        "DefinitionSpan",
+        "_first_identifier_text",
+        "_extract_def_name"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def _first_identifier_text(node: ts.Node) -> Optional[str]:\n    if node.type == \"identifier\" and node.text:\n        return node.text.decode(\"utf-8\")\n    for child in node.children:\n        found = _first_identifier_text(child)\n        if found:\n            return found\n    return None\n\n\ndef _extract_def_name(node: ts.Node, field_name: Optional[str]) -> Optional[str]:\n    if field_name:\n        name_node = node.child_by_field_name(field_name)\n        if name_node is not None and name_node.text:\n            return name_node.text.decode(\"utf-8\")\n    # Fallback: some grammars use identifier child\n    return _first_identifier_text(node)\n\n\ndef _walk_definitions(\n    node: ts.Node,\n    pairs: tuple[tuple[str, Optional[str]], ...],\n    out: List[DefinitionSpan],\n) -> None:\n    for ntype, fname in pairs:\n        if node.type == ntype:\n            name = _extract_def_name(node, fname)\n            if name:\n                out.append(\n                    DefinitionSpan(\n                        name=name,\n                        start_line=node.start_point.row,\n                        end_line=node.end_point.row,\n                        node_type=ntype,\n                    )\n                )\n            break\n    for child in node.children:\n        _walk_definitions(child, pairs, out)",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/symbols.py",
+      "chunk_size": 862,
+      "line_count": 39,
+      "start_line_no": 78,
+      "end_line_no": 116,
+      "node_count": 3,
+      "symbols": [
         "_first_identifier_text",
         "_extract_def_name",
+        "_walk_definitions"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def _extract_def_name(node: ts.Node, field_name: Optional[str]) -> Optional[str]:\n    if field_name:\n        name_node = node.child_by_field_name(field_name)\n        if name_node is not None and name_node.text:\n            return name_node.text.decode(\"utf-8\")\n    # Fallback: some grammars use identifier child\n    return _first_identifier_text(node)\n\n\ndef _walk_definitions(\n    node: ts.Node,\n    pairs: tuple[tuple[str, Optional[str]], ...],\n    out: List[DefinitionSpan],\n) -> None:\n    for ntype, fname in pairs:\n        if node.type == ntype:\n            name = _extract_def_name(node, fname)\n            if name:\n                out.append(\n                    DefinitionSpan(\n                        name=name,\n                        start_line=node.start_point.row,\n                        end_line=node.end_point.row,\n                        node_type=ntype,\n                    )\n                )\n            break\n    for child in node.children:\n        _walk_definitions(child, pairs, out)\n\n\ndef collect_definitions(root: ts.Node, language: str) -> List[DefinitionSpan]:\n    \"\"\"Depth-first list of named definitions in the tree (preorder by visit).\"\"\"\n    pairs = _DEF_CONFIG.get(language)\n    if not pairs:\n        return []\n    out: List[DefinitionSpan] = []\n    _walk_definitions(root, pairs, out)\n    return out",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/symbols.py",
+      "chunk_size": 907,
+      "line_count": 39,
+      "start_line_no": 88,
+      "end_line_no": 126,
+      "node_count": 3,
+      "symbols": [
+        "_extract_def_name",
         "_walk_definitions",
+        "collect_definitions"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def _walk_definitions(\n    node: ts.Node,\n    pairs: tuple[tuple[str, Optional[str]], ...],\n    out: List[DefinitionSpan],\n) -> None:\n    for ntype, fname in pairs:\n        if node.type == ntype:\n            name = _extract_def_name(node, fname)\n            if name:\n                out.append(\n                    DefinitionSpan(\n                        name=name,\n                        start_line=node.start_point.row,\n                        end_line=node.end_point.row,\n                        node_type=ntype,\n                    )\n                )\n            break\n    for child in node.children:\n        _walk_definitions(child, pairs, out)\n\n\ndef collect_definitions(root: ts.Node, language: str) -> List[DefinitionSpan]:\n    \"\"\"Depth-first list of named definitions in the tree (preorder by visit).\"\"\"\n    pairs = _DEF_CONFIG.get(language)\n    if not pairs:\n        return []\n    out: List[DefinitionSpan] = []\n    _walk_definitions(root, pairs, out)\n    return out\n\n\ndef symbols_overlapping_chunk(\n    definitions: List[DefinitionSpan],\n    chunk_start_line: int,\n    chunk_end_line: int,\n) -> List[str]:\n    \"\"\"\n    Names of definitions whose line range overlaps the chunk (inclusive), stable-sorted unique.\n    \"\"\"\n    seen: set[str] = set()\n    ordered: List[str] = []\n    for d in definitions:\n        if chunk_end_line < d.start_line or d.end_line < chunk_start_line:\n            continue\n        if d.name not in seen:\n            seen.add(d.name)\n            ordered.append(d.name)\n    return ordered",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/symbols.py",
+      "chunk_size": 1019,
+      "line_count": 49,
+      "start_line_no": 97,
+      "end_line_no": 145,
+      "node_count": 3,
+      "symbols": [
+        "_walk_definitions",
+        "collect_definitions",
+        "symbols_overlapping_chunk"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def collect_definitions(root: ts.Node, language: str) -> List[DefinitionSpan]:\n    \"\"\"Depth-first list of named definitions in the tree (preorder by visit).\"\"\"\n    pairs = _DEF_CONFIG.get(language)\n    if not pairs:\n        return []\n    out: List[DefinitionSpan] = []\n    _walk_definitions(root, pairs, out)\n    return out\n\n\ndef symbols_overlapping_chunk(\n    definitions: List[DefinitionSpan],\n    chunk_start_line: int,\n    chunk_end_line: int,\n) -> List[str]:\n    \"\"\"\n    Names of definitions whose line range overlaps the chunk (inclusive), stable-sorted unique.\n    \"\"\"\n    seen: set[str] = set()\n    ordered: List[str] = []\n    for d in definitions:\n        if chunk_end_line < d.start_line or d.end_line < chunk_start_line:\n            continue\n        if d.name not in seen:\n            seen.add(d.name)\n            ordered.append(d.name)\n    return ordered\n\n\ndef is_definition_node(node: ts.Node, language: str) -> bool:\n    return node.type in definition_node_types(language)",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/symbols.py",
+      "chunk_size": 754,
+      "line_count": 31,
+      "start_line_no": 119,
+      "end_line_no": 149,
+      "node_count": 3,
+      "symbols": [
         "collect_definitions",
         "symbols_overlapping_chunk",
         "is_definition_node"
       ],
-      "symbol_count": 8
+      "symbol_count": 3
     }
   },
   {
-    "content": "\"\"\"\nTree-sitter-backed symbol metadata.\n\nLine numbers follow tree-sitter's coordinate system (0-based row indices), consistent\nwith ``start_line_no`` / ``end_line_no`` on chunks.\n\n``symbols`` lists the *simple names* of definitions whose line span **overlaps** the\nchunk's span (inclusive on both ends). Two ranges [a, b] and [c, d] overlap iff\nnot (b < c or d < a).\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom typing import FrozenSet, List, Optional\n\nimport tree_sitter as ts\n\n# (node_type, field_name_for_name) \u2014 field_name None means use heuristics\n_PYTHON_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"function_definition\", \"name\"),\n    (\"class_definition\", \"name\"),\n)\n\n_JAVA_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"method_declaration\", \"name\"),\n    (\"constructor_declaration\", \"name\"),\n    (\"class_declaration\", \"name\"),\n    (\"interface_declaration\", \"name\"),\n    (\"enum_declaration\", \"name\"),\n)\n\n_CSHARP_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"method_declaration\", \"name\"),\n    (\"constructor_declaration\", \"name\"),\n    (\"class_declaration\", \"name\"),\n    (\"struct_declaration\", \"name\"),\n    (\"interface_declaration\", \"name\"),\n    (\"enum_declaration\", \"name\"),\n    (\"record_declaration\", \"name\"),\n    (\"delegate_declaration\", \"name\"),\n)\n\n_TYPESCRIPT_DEFS: tuple[tuple[str, Optional[str]], ...] = (\n    (\"function_declaration\", \"name\"),\n    (\"function_signature\", \"name\"),\n    (\"class_declaration\", \"name\"),\n    (\"interface_declaration\", \"name\"),\n    (\"type_alias_declaration\", \"name\"),\n    (\"enum_declaration\", \"name\"),\n    (\"method_definition\", \"name\"),\n    (\"method_signature\", \"name\"),\n)\n\n_DEF_CONFIG: dict[str, tuple[tuple[str, Optional[str]], ...]] = {\n    \"python\": _PYTHON_DEFS,\n    \"java\": _JAVA_DEFS,\n    \"csharp\": _CSHARP_DEFS,\n    \"typescript\": _TYPESCRIPT_DEFS,\n}\n\n\ndef definition_node_types(language: str) -> FrozenSet[str]:\n    \"\"\"Node types treated as named definitions for chunking strategies.\"\"\"\n    cfg = _DEF_CONFIG.get(language)\n    if not cfg:\n        return frozenset()\n    return frozenset(t for t, _ in cfg)\n\n\n@dataclass(frozen=True)\nclass DefinitionSpan:\n    name: str\n    start_line: int\n    end_line: int\n    node_type: str\n\n\ndef _first_identifier_text(node: ts.Node) -> Optional[str]:\n    if node.type == \"identifier\" and node.text:\n        return node.text.decode(\"utf-8\")\n    for child in node.children:\n        found = _first_identifier_text(child)\n        if found:\n            return found\n    return None\n\n\ndef _extract_def_name(node: ts.Node, field_name: Optional[str]) -> Optional[str]:\n    if field_name:\n        name_node = node.child_by_field_name(field_name)\n        if name_node is not None and name_node.text:\n            return name_node.text.decode(\"utf-8\")\n    # Fallback: some grammars use identifier child\n    return _first_identifier_text(node)\n\n\ndef _walk_definitions(\n    node: ts.Node,\n    pairs: tuple[tuple[str, Optional[str]], ...],\n    out: List[DefinitionSpan],\n) -> None:\n    for ntype, fname in pairs:\n        if node.type == ntype:\n            name = _extract_def_name(node, fname)\n            if name:\n                out.append(\n                    DefinitionSpan(\n                        name=name,\n                        start_line=node.start_point.row,\n                        end_line=node.end_point.row,\n                        node_type=ntype,\n                    )\n                )\n            break\n    for child in node.children:\n        _walk_definitions(child, pairs, out)\n\n\ndef collect_definitions(root: ts.Node, language: str) -> List[DefinitionSpan]:\n    \"\"\"Depth-first list of named definitions in the tree (preorder by visit).\"\"\"\n    pairs = _DEF_CONFIG.get(language)\n    if not pairs:\n        return []\n    out: List[DefinitionSpan] = []\n    _walk_definitions(root, pairs, out)\n    return out\n\n\ndef symbols_overlapping_chunk(\n    definitions: List[DefinitionSpan],\n    chunk_start_line: int,\n    chunk_end_line: int,\n) -> List[str]:\n    \"\"\"\n    Names of definitions whose line range overlaps the chunk (inclusive), stable-sorted unique.\n    \"\"\"\n    seen: set[str] = set()\n    ordered: List[str] = []\n    for d in definitions:\n        if chunk_end_line < d.start_line or d.end_line < chunk_start_line:\n            continue\n        if d.name not in seen:\n            seen.add(d.name)\n            ordered.append(d.name)\n    return ordered\n\n\ndef is_definition_node(node: ts.Node, language: str) -> bool:\n    return node.type in definition_node_types(language)",
+    "content": "def symbols_overlapping_chunk(\n    definitions: List[DefinitionSpan],\n    chunk_start_line: int,\n    chunk_end_line: int,\n) -> List[str]:\n    \"\"\"\n    Names of definitions whose line range overlaps the chunk (inclusive), stable-sorted unique.\n    \"\"\"\n    seen: set[str] = set()\n    ordered: List[str] = []\n    for d in definitions:\n        if chunk_end_line < d.start_line or d.end_line < chunk_start_line:\n            continue\n        if d.name not in seen:\n            seen.add(d.name)\n            ordered.append(d.name)\n    return ordered\n\n\ndef is_definition_node(node: ts.Node, language: str) -> bool:\n    return node.type in definition_node_types(language)",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/src/astchunk/symbols.py",
-      "chunk_size": 3468,
-      "line_count": 150,
-      "start_line_no": 0,
+      "chunk_size": 497,
+      "line_count": 21,
+      "start_line_no": 129,
       "end_line_no": 149,
-      "node_count": 19,
+      "node_count": 2,
       "symbols": [
-        "definition_node_types",
-        "DefinitionSpan",
-        "_first_identifier_text",
-        "_extract_def_name",
-        "_walk_definitions",
-        "collect_definitions",
         "symbols_overlapping_chunk",
         "is_definition_node"
       ],
-      "symbol_count": 8
+      "symbol_count": 2
     }
   },
   {
-    "content": "#!/usr/bin/env python3\n\"\"\"\nQuick test to verify that non whitespace count functions work correctly.\n\"\"\"\n\nfrom astchunk import (\n    ByteRange,\n    preprocess_nws_count,\n    get_nws_count,\n    get_nws_count_direct\n)\n\n\ndef test_renamed_functions():    \n    # Test data\n    test_code = \"def foo():\\n    print('hello world')\\n    return 42\"\n    test_bytes = test_code.encode('utf-8')\n    \n    print(\"Testing nws count functions...\")\n    print(f\"----- Test code -----\\n{test_code}\\n---------------------\")\n    \n    # Test preprocess_nws_count\n    nws_cumsum = preprocess_nws_count(test_bytes)\n    print(f\"nws_cumsum shape: {nws_cumsum.shape}\")\n    print(f\"nws_cumsum: {nws_cumsum}\")\n    \n    # Test get_nws_count \n    full_range = ByteRange(0, len(test_bytes))\n    nws_count = get_nws_count(nws_cumsum, full_range)\n    print(f\"Non-whitespace count (using cumsum): {nws_count}\")\n    \n    # Test get_nws_count_direct \n    # Note: Direct method works on string, cumsum method works on bytes\n    nws_count_direct = get_nws_count_direct(test_bytes.decode('utf-8'))\n    print(f\"Non-whitespace count (direct): {nws_count_direct}\")\n    \n    # For this simple test, they should be the same\n    print(f\"Cumsum result: {nws_count}, Direct result: {nws_count_direct}\")\n    assert nws_count == nws_count_direct, \"Cumsum and direct count do not match!\"\n    print(\"\u2713 Functions are working correctly!\")\n    \n    # Test a partial range\n    partial_range = ByteRange(0, 11)  # First 10 bytes (note exclusive end)\n    partial_nws_count = get_nws_count(nws_cumsum, partial_range)\n    partial_direct = get_nws_count_direct(test_bytes[:10].decode('utf-8'))\n    print(f\"Partial range [0:10] - cumsum: {partial_nws_count}, direct: {partial_direct}\")\n    assert partial_nws_count == partial_direct, \"Partial range count does not match!\"\n    print(\"\u2713 Partial range test completed!\")\n    \n    print(\"All tests passed! \u2713\")\n\nif __name__ == \"__main__\":\n    test_renamed_functions()\n",
+    "content": "#!/usr/bin/env python3\n\"\"\"\nQuick test to verify that non whitespace count functions work correctly.\n\"\"\"\n\nfrom astchunk import (\n    ByteRange,\n    preprocess_nws_count,\n    get_nws_count,\n    get_nws_count_direct\n)\n\n\ndef test_renamed_functions():    \n    # Test data\n    test_code = \"def foo():\\n    print('hello world')\\n    return 42\"\n    test_bytes = test_code.encode('utf-8')\n    \n    print(\"Testing nws count functions...\")\n    print(f\"----- Test code -----\\n{test_code}\\n---------------------\")\n    \n    # Test preprocess_nws_count\n    nws_cumsum = preprocess_nws_count(test_bytes)\n    print(f\"nws_cumsum shape: {nws_cumsum.shape}\")\n    print(f\"nws_cumsum: {nws_cumsum}\")\n    \n    # Test get_nws_count \n    full_range = ByteRange(0, len(test_bytes))\n    nws_count = get_nws_count(nws_cumsum, full_range)\n    print(f\"Non-whitespace count (using cumsum): {nws_count}\")\n    \n    # Test get_nws_count_direct \n    # Note: Direct method works on string, cumsum method works on bytes\n    nws_count_direct = get_nws_count_direct(test_bytes.decode('utf-8'))\n    print(f\"Non-whitespace count (direct): {nws_count_direct}\")\n    \n    # For this simple test, they should be the same\n    print(f\"Cumsum result: {nws_count}, Direct result: {nws_count_direct}\")\n    assert nws_count == nws_count_direct, \"Cumsum and direct count do not match!\"\n    print(\"\u2713 Functions are working correctly!\")\n    \n    # Test a partial range\n    partial_range = ByteRange(0, 11)  # First 10 bytes (note exclusive end)\n    partial_nws_count = get_nws_count(nws_cumsum, partial_range)\n    partial_direct = get_nws_count_direct(test_bytes[:10].decode('utf-8'))\n    print(f\"Partial range [0:10] - cumsum: {partial_nws_count}, direct: {partial_direct}\")\n    assert partial_nws_count == partial_direct, \"Partial range count does not match!\"\n    print(\"\u2713 Partial range test completed!\")\n    \n    print(\"All tests passed! \u2713\")",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_nws_count.py",
-      "chunk_size": 1575,
-      "line_count": 54,
+      "chunk_size": 1528,
+      "line_count": 50,
       "start_line_no": 0,
-      "end_line_no": 53,
-      "node_count": 1,
+      "end_line_no": 49,
+      "node_count": 4,
       "symbols": [
         "test_renamed_functions"
       ],
@@ -648,89 +1064,314 @@
     }
   },
   {
-    "content": "\"\"\"Tests for repo scanning and gitignore filtering.\"\"\"\nfrom pathlib import Path\n\nfrom astchunk.repo_scan import (\n    collect_source_files,\n    load_gitignore_spec,\n    resolve_ignore_root,\n)\n\n\ndef test_collect_respects_gitignore(tmp_path: Path) -> None:\n    (tmp_path / \"keep.py\").write_text(\"x = 1\\n\", encoding=\"utf-8\")\n    skip_dir = tmp_path / \"skipme\"\n    skip_dir.mkdir()\n    (skip_dir / \"gone.py\").write_text(\"y = 2\\n\", encoding=\"utf-8\")\n    (tmp_path / \".gitignore\").write_text(\"skipme/\\n\", encoding=\"utf-8\")\n\n    spec = load_gitignore_spec(tmp_path)\n    files = collect_source_files(\n        tmp_path,\n        tmp_path,\n        spec,\n        use_gitignore=True,\n        language=None,\n    )\n    paths = [p for p, _ in files]\n    assert len(paths) == 1\n    assert paths[0].name == \"keep.py\"\n\n\ndef test_extra_ignore_patterns(tmp_path: Path) -> None:\n    (tmp_path / \"a.py\").write_text(\"pass\\n\", encoding=\"utf-8\")\n    (tmp_path / \"b.py\").write_text(\"pass\\n\", encoding=\"utf-8\")\n    spec = load_gitignore_spec(tmp_path, extra_patterns=[\"b.py\"])\n    files = collect_source_files(\n        tmp_path,\n        tmp_path,\n        spec,\n        use_gitignore=True,\n        language=None,\n    )\n    assert [p.name for p, _ in files] == [\"a.py\"]\n\n\ndef test_language_filter(tmp_path: Path) -> None:\n    (tmp_path / \"x.py\").write_text(\"a=1\\n\", encoding=\"utf-8\")\n    (tmp_path / \"x.java\").write_text(\"class X {}\\n\", encoding=\"utf-8\")\n    files = collect_source_files(\n        tmp_path,\n        tmp_path,\n        None,\n        use_gitignore=False,\n        language=\"python\",\n    )\n    assert len(files) == 1\n    assert files[0][0].suffix == \".py\"\n    assert files[0][1] == \"python\"\n\n\ndef test_resolve_ignore_root_override(tmp_path: Path) -> None:\n    sub = tmp_path / \"sub\"\n    sub.mkdir()\n    assert resolve_ignore_root(sub, tmp_path) == tmp_path.resolve()\n\n\ndef test_path_under_git_dir_segment() -> None:\n    from astchunk.repo_scan import _path_under_git_dir\n\n    assert _path_under_git_dir(Path(\"/proj/.git/config\"))\n    assert not _path_under_git_dir(Path(\"/proj/src/main.py\"))\n\n\ndef test_chunk_metadata_filepath_absolute(tmp_path: Path) -> None:\n    from astchunk import ASTChunkBuilder\n\n    src = tmp_path / \"mod.py\"\n    src.write_text(\"def f():\\n    return 1\\n\", encoding=\"utf-8\")\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    chunks = builder.chunkify(\n        src.read_text(encoding=\"utf-8\"),\n        chunk_overlap=0,\n        repo_level_metadata={\"filepath\": str(src.resolve())},\n    )\n    assert chunks\n    meta = chunks[0][\"metadata\"]\n    assert meta[\"filepath\"] == str(src.resolve())\n    assert meta[\"symbols\"] == [\"f\"]\n    assert meta[\"symbol_count\"] == 1",
+    "content": "#!/usr/bin/env python3\n\"\"\"\nQuick test to verify that non whitespace count functions work correctly.\n\"\"\"\n\nfrom astchunk import (\n    ByteRange,\n    preprocess_nws_count,\n    get_nws_count,\n    get_nws_count_direct\n)\n\n\ndef test_renamed_functions():    \n    # Test data\n    test_code = \"def foo():\\n    print('hello world')\\n    return 42\"\n    test_bytes = test_code.encode('utf-8')\n    \n    print(\"Testing nws count functions...\")\n    print(f\"----- Test code -----\\n{test_code}\\n---------------------\")\n    \n    # Test preprocess_nws_count\n    nws_cumsum = preprocess_nws_count(test_bytes)\n    print(f\"nws_cumsum shape: {nws_cumsum.shape}\")\n    print(f\"nws_cumsum: {nws_cumsum}\")\n    \n    # Test get_nws_count \n    full_range = ByteRange(0, len(test_bytes))\n    nws_count = get_nws_count(nws_cumsum, full_range)\n    print(f\"Non-whitespace count (using cumsum): {nws_count}\")\n    \n    # Test get_nws_count_direct \n    # Note: Direct method works on string, cumsum method works on bytes\n    nws_count_direct = get_nws_count_direct(test_bytes.decode('utf-8'))\n    print(f\"Non-whitespace count (direct): {nws_count_direct}\")\n    \n    # For this simple test, they should be the same\n    print(f\"Cumsum result: {nws_count}, Direct result: {nws_count_direct}\")\n    assert nws_count == nws_count_direct, \"Cumsum and direct count do not match!\"\n    print(\"\u2713 Functions are working correctly!\")\n    \n    # Test a partial range\n    partial_range = ByteRange(0, 11)  # First 10 bytes (note exclusive end)\n    partial_nws_count = get_nws_count(nws_cumsum, partial_range)\n    partial_direct = get_nws_count_direct(test_bytes[:10].decode('utf-8'))\n    print(f\"Partial range [0:10] - cumsum: {partial_nws_count}, direct: {partial_direct}\")\n    assert partial_nws_count == partial_direct, \"Partial range count does not match!\"\n    print(\"\u2713 Partial range test completed!\")\n    \n    print(\"All tests passed! \u2713\")\n\nif __name__ == \"__main__\":\n    test_renamed_functions()",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_nws_count.py",
+      "chunk_size": 1575,
+      "line_count": 53,
+      "start_line_no": 0,
+      "end_line_no": 52,
+      "node_count": 5,
+      "symbols": [
+        "test_renamed_functions"
+      ],
+      "symbol_count": 1
+    }
+  },
+  {
+    "content": "def test_renamed_functions():    \n    # Test data\n    test_code = \"def foo():\\n    print('hello world')\\n    return 42\"\n    test_bytes = test_code.encode('utf-8')\n    \n    print(\"Testing nws count functions...\")\n    print(f\"----- Test code -----\\n{test_code}\\n---------------------\")\n    \n    # Test preprocess_nws_count\n    nws_cumsum = preprocess_nws_count(test_bytes)\n    print(f\"nws_cumsum shape: {nws_cumsum.shape}\")\n    print(f\"nws_cumsum: {nws_cumsum}\")\n    \n    # Test get_nws_count \n    full_range = ByteRange(0, len(test_bytes))\n    nws_count = get_nws_count(nws_cumsum, full_range)\n    print(f\"Non-whitespace count (using cumsum): {nws_count}\")\n    \n    # Test get_nws_count_direct \n    # Note: Direct method works on string, cumsum method works on bytes\n    nws_count_direct = get_nws_count_direct(test_bytes.decode('utf-8'))\n    print(f\"Non-whitespace count (direct): {nws_count_direct}\")\n    \n    # For this simple test, they should be the same\n    print(f\"Cumsum result: {nws_count}, Direct result: {nws_count_direct}\")\n    assert nws_count == nws_count_direct, \"Cumsum and direct count do not match!\"\n    print(\"\u2713 Functions are working correctly!\")\n    \n    # Test a partial range\n    partial_range = ByteRange(0, 11)  # First 10 bytes (note exclusive end)\n    partial_nws_count = get_nws_count(nws_cumsum, partial_range)\n    partial_direct = get_nws_count_direct(test_bytes[:10].decode('utf-8'))\n    print(f\"Partial range [0:10] - cumsum: {partial_nws_count}, direct: {partial_direct}\")\n    assert partial_nws_count == partial_direct, \"Partial range count does not match!\"\n    print(\"\u2713 Partial range test completed!\")\n    \n    print(\"All tests passed! \u2713\")\n\nif __name__ == \"__main__\":\n    test_renamed_functions()",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_nws_count.py",
+      "chunk_size": 1401,
+      "line_count": 40,
+      "start_line_no": 13,
+      "end_line_no": 52,
+      "node_count": 2,
+      "symbols": [
+        "test_renamed_functions"
+      ],
+      "symbol_count": 1
+    }
+  },
+  {
+    "content": "\"\"\"Tests for repo scanning and gitignore filtering.\"\"\"\nfrom pathlib import Path\n\nfrom astchunk.repo_scan import (\n    collect_source_files,\n    load_gitignore_spec,\n    resolve_ignore_root,\n)\n\n\ndef test_collect_respects_gitignore(tmp_path: Path) -> None:\n    (tmp_path / \"keep.py\").write_text(\"x = 1\\n\", encoding=\"utf-8\")\n    skip_dir = tmp_path / \"skipme\"\n    skip_dir.mkdir()\n    (skip_dir / \"gone.py\").write_text(\"y = 2\\n\", encoding=\"utf-8\")\n    (tmp_path / \".gitignore\").write_text(\"skipme/\\n\", encoding=\"utf-8\")\n\n    spec = load_gitignore_spec(tmp_path)\n    files = collect_source_files(\n        tmp_path,\n        tmp_path,\n        spec,\n        use_gitignore=True,\n        language=None,\n    )\n    paths = [p for p, _ in files]\n    assert len(paths) == 1\n    assert paths[0].name == \"keep.py\"",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_repo_scan.py",
-      "chunk_size": 2155,
-      "line_count": 92,
+      "chunk_size": 625,
+      "line_count": 28,
       "start_line_no": 0,
-      "end_line_no": 91,
-      "node_count": 9,
+      "end_line_no": 27,
+      "node_count": 4,
+      "symbols": [
+        "test_collect_respects_gitignore"
+      ],
+      "symbol_count": 1
+    }
+  },
+  {
+    "content": "\"\"\"Tests for repo scanning and gitignore filtering.\"\"\"\nfrom pathlib import Path\n\nfrom astchunk.repo_scan import (\n    collect_source_files,\n    load_gitignore_spec,\n    resolve_ignore_root,\n)\n\n\ndef test_collect_respects_gitignore(tmp_path: Path) -> None:\n    (tmp_path / \"keep.py\").write_text(\"x = 1\\n\", encoding=\"utf-8\")\n    skip_dir = tmp_path / \"skipme\"\n    skip_dir.mkdir()\n    (skip_dir / \"gone.py\").write_text(\"y = 2\\n\", encoding=\"utf-8\")\n    (tmp_path / \".gitignore\").write_text(\"skipme/\\n\", encoding=\"utf-8\")\n\n    spec = load_gitignore_spec(tmp_path)\n    files = collect_source_files(\n        tmp_path,\n        tmp_path,\n        spec,\n        use_gitignore=True,\n        language=None,\n    )\n    paths = [p for p, _ in files]\n    assert len(paths) == 1\n    assert paths[0].name == \"keep.py\"\n\n\ndef test_extra_ignore_patterns(tmp_path: Path) -> None:\n    (tmp_path / \"a.py\").write_text(\"pass\\n\", encoding=\"utf-8\")\n    (tmp_path / \"b.py\").write_text(\"pass\\n\", encoding=\"utf-8\")\n    spec = load_gitignore_spec(tmp_path, extra_patterns=[\"b.py\"])\n    files = collect_source_files(\n        tmp_path,\n        tmp_path,\n        spec,\n        use_gitignore=True,\n        language=None,\n    )\n    assert [p.name for p, _ in files] == [\"a.py\"]",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_repo_scan.py",
+      "chunk_size": 965,
+      "line_count": 42,
+      "start_line_no": 0,
+      "end_line_no": 41,
+      "node_count": 5,
+      "symbols": [
+        "test_collect_respects_gitignore",
+        "test_extra_ignore_patterns"
+      ],
+      "symbol_count": 2
+    }
+  },
+  {
+    "content": "def test_collect_respects_gitignore(tmp_path: Path) -> None:\n    (tmp_path / \"keep.py\").write_text(\"x = 1\\n\", encoding=\"utf-8\")\n    skip_dir = tmp_path / \"skipme\"\n    skip_dir.mkdir()\n    (skip_dir / \"gone.py\").write_text(\"y = 2\\n\", encoding=\"utf-8\")\n    (tmp_path / \".gitignore\").write_text(\"skipme/\\n\", encoding=\"utf-8\")\n\n    spec = load_gitignore_spec(tmp_path)\n    files = collect_source_files(\n        tmp_path,\n        tmp_path,\n        spec,\n        use_gitignore=True,\n        language=None,\n    )\n    paths = [p for p, _ in files]\n    assert len(paths) == 1\n    assert paths[0].name == \"keep.py\"\n\n\ndef test_extra_ignore_patterns(tmp_path: Path) -> None:\n    (tmp_path / \"a.py\").write_text(\"pass\\n\", encoding=\"utf-8\")\n    (tmp_path / \"b.py\").write_text(\"pass\\n\", encoding=\"utf-8\")\n    spec = load_gitignore_spec(tmp_path, extra_patterns=[\"b.py\"])\n    files = collect_source_files(\n        tmp_path,\n        tmp_path,\n        spec,\n        use_gitignore=True,\n        language=None,\n    )\n    assert [p.name for p, _ in files] == [\"a.py\"]\n\n\ndef test_language_filter(tmp_path: Path) -> None:\n    (tmp_path / \"x.py\").write_text(\"a=1\\n\", encoding=\"utf-8\")\n    (tmp_path / \"x.java\").write_text(\"class X {}\\n\", encoding=\"utf-8\")\n    files = collect_source_files(\n        tmp_path,\n        tmp_path,\n        None,\n        use_gitignore=False,\n        language=\"python\",\n    )\n    assert len(files) == 1\n    assert files[0][0].suffix == \".py\"\n    assert files[0][1] == \"python\"",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_repo_scan.py",
+      "chunk_size": 1131,
+      "line_count": 47,
+      "start_line_no": 10,
+      "end_line_no": 56,
+      "node_count": 3,
       "symbols": [
         "test_collect_respects_gitignore",
         "test_extra_ignore_patterns",
+        "test_language_filter"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def test_extra_ignore_patterns(tmp_path: Path) -> None:\n    (tmp_path / \"a.py\").write_text(\"pass\\n\", encoding=\"utf-8\")\n    (tmp_path / \"b.py\").write_text(\"pass\\n\", encoding=\"utf-8\")\n    spec = load_gitignore_spec(tmp_path, extra_patterns=[\"b.py\"])\n    files = collect_source_files(\n        tmp_path,\n        tmp_path,\n        spec,\n        use_gitignore=True,\n        language=None,\n    )\n    assert [p.name for p, _ in files] == [\"a.py\"]\n\n\ndef test_language_filter(tmp_path: Path) -> None:\n    (tmp_path / \"x.py\").write_text(\"a=1\\n\", encoding=\"utf-8\")\n    (tmp_path / \"x.java\").write_text(\"class X {}\\n\", encoding=\"utf-8\")\n    files = collect_source_files(\n        tmp_path,\n        tmp_path,\n        None,\n        use_gitignore=False,\n        language=\"python\",\n    )\n    assert len(files) == 1\n    assert files[0][0].suffix == \".py\"\n    assert files[0][1] == \"python\"\n\n\ndef test_resolve_ignore_root_override(tmp_path: Path) -> None:\n    sub = tmp_path / \"sub\"\n    sub.mkdir()\n    assert resolve_ignore_root(sub, tmp_path) == tmp_path.resolve()",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_repo_scan.py",
+      "chunk_size": 812,
+      "line_count": 33,
+      "start_line_no": 30,
+      "end_line_no": 62,
+      "node_count": 3,
+      "symbols": [
+        "test_extra_ignore_patterns",
         "test_language_filter",
+        "test_resolve_ignore_root_override"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def test_language_filter(tmp_path: Path) -> None:\n    (tmp_path / \"x.py\").write_text(\"a=1\\n\", encoding=\"utf-8\")\n    (tmp_path / \"x.java\").write_text(\"class X {}\\n\", encoding=\"utf-8\")\n    files = collect_source_files(\n        tmp_path,\n        tmp_path,\n        None,\n        use_gitignore=False,\n        language=\"python\",\n    )\n    assert len(files) == 1\n    assert files[0][0].suffix == \".py\"\n    assert files[0][1] == \"python\"\n\n\ndef test_resolve_ignore_root_override(tmp_path: Path) -> None:\n    sub = tmp_path / \"sub\"\n    sub.mkdir()\n    assert resolve_ignore_root(sub, tmp_path) == tmp_path.resolve()\n\n\ndef test_path_under_git_dir_segment() -> None:\n    from astchunk.repo_scan import _path_under_git_dir\n\n    assert _path_under_git_dir(Path(\"/proj/.git/config\"))\n    assert not _path_under_git_dir(Path(\"/proj/src/main.py\"))",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_repo_scan.py",
+      "chunk_size": 669,
+      "line_count": 26,
+      "start_line_no": 44,
+      "end_line_no": 69,
+      "node_count": 3,
+      "symbols": [
+        "test_language_filter",
+        "test_resolve_ignore_root_override",
+        "test_path_under_git_dir_segment"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def test_resolve_ignore_root_override(tmp_path: Path) -> None:\n    sub = tmp_path / \"sub\"\n    sub.mkdir()\n    assert resolve_ignore_root(sub, tmp_path) == tmp_path.resolve()\n\n\ndef test_path_under_git_dir_segment() -> None:\n    from astchunk.repo_scan import _path_under_git_dir\n\n    assert _path_under_git_dir(Path(\"/proj/.git/config\"))\n    assert not _path_under_git_dir(Path(\"/proj/src/main.py\"))\n\n\ndef test_chunk_metadata_filepath_absolute(tmp_path: Path) -> None:\n    from astchunk import ASTChunkBuilder\n\n    src = tmp_path / \"mod.py\"\n    src.write_text(\"def f():\\n    return 1\\n\", encoding=\"utf-8\")\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    chunks = builder.chunkify(\n        src.read_text(encoding=\"utf-8\"),\n        chunk_overlap=0,\n        repo_level_metadata={\"filepath\": str(src.resolve())},\n    )\n    assert chunks\n    meta = chunks[0][\"metadata\"]\n    assert meta[\"filepath\"] == str(src.resolve())\n    assert meta[\"symbols\"] == [\"f\"]\n    assert meta[\"symbol_count\"] == 1",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_repo_scan.py",
+      "chunk_size": 864,
+      "line_count": 33,
+      "start_line_no": 59,
+      "end_line_no": 91,
+      "node_count": 3,
+      "symbols": [
         "test_resolve_ignore_root_override",
         "test_path_under_git_dir_segment",
         "test_chunk_metadata_filepath_absolute"
       ],
-      "symbol_count": 6
+      "symbol_count": 3
     }
   },
   {
-    "content": "\"\"\"Tests for repo scanning and gitignore filtering.\"\"\"\nfrom pathlib import Path\n\nfrom astchunk.repo_scan import (\n    collect_source_files,\n    load_gitignore_spec,\n    resolve_ignore_root,\n)\n\n\ndef test_collect_respects_gitignore(tmp_path: Path) -> None:\n    (tmp_path / \"keep.py\").write_text(\"x = 1\\n\", encoding=\"utf-8\")\n    skip_dir = tmp_path / \"skipme\"\n    skip_dir.mkdir()\n    (skip_dir / \"gone.py\").write_text(\"y = 2\\n\", encoding=\"utf-8\")\n    (tmp_path / \".gitignore\").write_text(\"skipme/\\n\", encoding=\"utf-8\")\n\n    spec = load_gitignore_spec(tmp_path)\n    files = collect_source_files(\n        tmp_path,\n        tmp_path,\n        spec,\n        use_gitignore=True,\n        language=None,\n    )\n    paths = [p for p, _ in files]\n    assert len(paths) == 1\n    assert paths[0].name == \"keep.py\"\n\n\ndef test_extra_ignore_patterns(tmp_path: Path) -> None:\n    (tmp_path / \"a.py\").write_text(\"pass\\n\", encoding=\"utf-8\")\n    (tmp_path / \"b.py\").write_text(\"pass\\n\", encoding=\"utf-8\")\n    spec = load_gitignore_spec(tmp_path, extra_patterns=[\"b.py\"])\n    files = collect_source_files(\n        tmp_path,\n        tmp_path,\n        spec,\n        use_gitignore=True,\n        language=None,\n    )\n    assert [p.name for p, _ in files] == [\"a.py\"]\n\n\ndef test_language_filter(tmp_path: Path) -> None:\n    (tmp_path / \"x.py\").write_text(\"a=1\\n\", encoding=\"utf-8\")\n    (tmp_path / \"x.java\").write_text(\"class X {}\\n\", encoding=\"utf-8\")\n    files = collect_source_files(\n        tmp_path,\n        tmp_path,\n        None,\n        use_gitignore=False,\n        language=\"python\",\n    )\n    assert len(files) == 1\n    assert files[0][0].suffix == \".py\"\n    assert files[0][1] == \"python\"\n\n\ndef test_resolve_ignore_root_override(tmp_path: Path) -> None:\n    sub = tmp_path / \"sub\"\n    sub.mkdir()\n    assert resolve_ignore_root(sub, tmp_path) == tmp_path.resolve()\n\n\ndef test_path_under_git_dir_segment() -> None:\n    from astchunk.repo_scan import _path_under_git_dir\n\n    assert _path_under_git_dir(Path(\"/proj/.git/config\"))\n    assert not _path_under_git_dir(Path(\"/proj/src/main.py\"))\n\n\ndef test_chunk_metadata_filepath_absolute(tmp_path: Path) -> None:\n    from astchunk import ASTChunkBuilder\n\n    src = tmp_path / \"mod.py\"\n    src.write_text(\"def f():\\n    return 1\\n\", encoding=\"utf-8\")\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    chunks = builder.chunkify(\n        src.read_text(encoding=\"utf-8\"),\n        chunk_overlap=0,\n        repo_level_metadata={\"filepath\": str(src.resolve())},\n    )\n    assert chunks\n    meta = chunks[0][\"metadata\"]\n    assert meta[\"filepath\"] == str(src.resolve())\n    assert meta[\"symbols\"] == [\"f\"]\n    assert meta[\"symbol_count\"] == 1",
+    "content": "def test_path_under_git_dir_segment() -> None:\n    from astchunk.repo_scan import _path_under_git_dir\n\n    assert _path_under_git_dir(Path(\"/proj/.git/config\"))\n    assert not _path_under_git_dir(Path(\"/proj/src/main.py\"))\n\n\ndef test_chunk_metadata_filepath_absolute(tmp_path: Path) -> None:\n    from astchunk import ASTChunkBuilder\n\n    src = tmp_path / \"mod.py\"\n    src.write_text(\"def f():\\n    return 1\\n\", encoding=\"utf-8\")\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    chunks = builder.chunkify(\n        src.read_text(encoding=\"utf-8\"),\n        chunk_overlap=0,\n        repo_level_metadata={\"filepath\": str(src.resolve())},\n    )\n    assert chunks\n    meta = chunks[0][\"metadata\"]\n    assert meta[\"filepath\"] == str(src.resolve())\n    assert meta[\"symbols\"] == [\"f\"]\n    assert meta[\"symbol_count\"] == 1",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_repo_scan.py",
-      "chunk_size": 2155,
-      "line_count": 92,
-      "start_line_no": 0,
+      "chunk_size": 718,
+      "line_count": 27,
+      "start_line_no": 65,
       "end_line_no": 91,
-      "node_count": 9,
+      "node_count": 2,
       "symbols": [
-        "test_collect_respects_gitignore",
-        "test_extra_ignore_patterns",
-        "test_language_filter",
-        "test_resolve_ignore_root_override",
         "test_path_under_git_dir_segment",
         "test_chunk_metadata_filepath_absolute"
       ],
-      "symbol_count": 6
+      "symbol_count": 2
     }
   },
   {
-    "content": "\"\"\"Tests for tree-sitter symbol metadata and definition/hybrid chunk strategies.\"\"\"\n\nimport pytest\n\nfrom astchunk import ASTChunkBuilder\n\n\ndef test_default_metadata_includes_symbols_single_function() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = \"def f():\\n    return 1\\n\"\n    chunks = builder.chunkify(code, chunk_overlap=0, repo_level_metadata={\"filepath\": \"m.py\"})\n    assert len(chunks) == 1\n    meta = chunks[0][\"metadata\"]\n    assert meta[\"symbols\"] == [\"f\"]\n    assert meta[\"symbol_count\"] == 1\n\n\ndef test_symbols_multi_function_size_strategy() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=2000,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"def alpha():\\n    return 1\\n\\n\"\n        \"def beta():\\n    return 2\\n\"\n    )\n    chunks = builder.chunkify(code, chunk_overlap=0, repo_level_metadata={})\n    assert len(chunks) == 1\n    assert set(chunks[0][\"metadata\"][\"symbols\"]) == {\"alpha\", \"beta\"}\n    assert chunks[0][\"metadata\"][\"symbol_count\"] == 2\n\n\ndef test_symbols_partial_overlap_when_chunk_splits() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=25,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"def first():\\n\"\n        \"    return 1\\n\\n\"\n        \"def second():\\n\"\n        \"    return 2\\n\"\n    )\n    chunks = builder.chunkify(code, chunk_overlap=0, repo_level_metadata={})\n    assert len(chunks) >= 2\n    all_syms = [set(c[\"metadata\"][\"symbols\"]) for c in chunks]\n    assert any(\"first\" in s and \"second\" not in s for s in all_syms)\n    assert any(\"second\" in s for s in all_syms)\n\n\ndef test_definition_strategy_one_chunk_per_top_level_def() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"def a():\\n    return 1\\n\\n\"\n        \"def b():\\n    return 2\\n\"\n    )\n    chunks = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"definition\",\n        repo_level_metadata={},\n    )\n    assert len(chunks) == 2\n    assert chunks[0][\"metadata\"][\"symbols\"] == [\"a\"]\n    assert chunks[1][\"metadata\"][\"symbols\"] == [\"b\"]\n\n\ndef test_definition_strategy_with_preamble() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"MODULE = 1\\n\\n\"\n        \"def fn():\\n    pass\\n\"\n    )\n    chunks = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"definition\",\n        repo_level_metadata={},\n    )\n    assert len(chunks) == 2\n    assert chunks[0][\"metadata\"][\"symbols\"] == []\n    assert chunks[1][\"metadata\"][\"symbols\"] == [\"fn\"]\n\n\ndef test_hybrid_splits_oversized_definition() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=400,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    body = \"\\n\".join(f\"    x_{i} = {i}\" for i in range(120))\n    code = f\"def big():\\n{body}\\n    return 0\\n\"\n    chunks_def = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"definition\",\n        repo_level_metadata={},\n    )\n    chunks_hybrid = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"hybrid\",\n        repo_level_metadata={},\n    )\n    assert len(chunks_def) == 1\n    assert len(chunks_hybrid) > 1\n    assert all(\"big\" in c[\"metadata\"][\"symbols\"] for c in chunks_hybrid)\n\n\ndef test_invalid_chunk_strategy_raises() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=100,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    with pytest.raises(ValueError, match=\"chunk_strategy\"):\n        builder.chunkify(\"x = 1\\n\", chunk_strategy=\"nope\")\n\n\ndef test_metadata_none_has_no_symbols_key() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"none\",\n    )\n    chunks = builder.chunkify(\"def f():\\n    pass\\n\", chunk_overlap=0)\n    assert chunks[0][\"metadata\"] == {}\n\n\ndef test_chunk_strategy_size_explicit() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = \"def a():\\n    pass\\n\"\n    chunks = builder.chunkify(\n        code,\n        chunk_strategy=\"size\",\n        repo_level_metadata={},\n    )\n    assert len(chunks) == 1\n    assert chunks[0][\"metadata\"][\"symbols\"] == [\"a\"]",
+    "content": "\"\"\"Tests for tree-sitter symbol metadata and definition/hybrid chunk strategies.\"\"\"\n\nimport pytest\n\nfrom astchunk import ASTChunkBuilder\n\n\ndef test_default_metadata_includes_symbols_single_function() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = \"def f():\\n    return 1\\n\"\n    chunks = builder.chunkify(code, chunk_overlap=0, repo_level_metadata={\"filepath\": \"m.py\"})\n    assert len(chunks) == 1\n    meta = chunks[0][\"metadata\"]\n    assert meta[\"symbols\"] == [\"f\"]\n    assert meta[\"symbol_count\"] == 1",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_symbols_chunking.py",
-      "chunk_size": 3406,
-      "line_count": 157,
+      "chunk_size": 489,
+      "line_count": 19,
       "start_line_no": 0,
-      "end_line_no": 156,
-      "node_count": 12,
+      "end_line_no": 18,
+      "node_count": 4,
+      "symbols": [
+        "test_default_metadata_includes_symbols_single_function"
+      ],
+      "symbol_count": 1
+    }
+  },
+  {
+    "content": "\"\"\"Tests for tree-sitter symbol metadata and definition/hybrid chunk strategies.\"\"\"\n\nimport pytest\n\nfrom astchunk import ASTChunkBuilder\n\n\ndef test_default_metadata_includes_symbols_single_function() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = \"def f():\\n    return 1\\n\"\n    chunks = builder.chunkify(code, chunk_overlap=0, repo_level_metadata={\"filepath\": \"m.py\"})\n    assert len(chunks) == 1\n    meta = chunks[0][\"metadata\"]\n    assert meta[\"symbols\"] == [\"f\"]\n    assert meta[\"symbol_count\"] == 1\n\n\ndef test_symbols_multi_function_size_strategy() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=2000,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"def alpha():\\n    return 1\\n\\n\"\n        \"def beta():\\n    return 2\\n\"\n    )\n    chunks = builder.chunkify(code, chunk_overlap=0, repo_level_metadata={})\n    assert len(chunks) == 1\n    assert set(chunks[0][\"metadata\"][\"symbols\"]) == {\"alpha\", \"beta\"}\n    assert chunks[0][\"metadata\"][\"symbol_count\"] == 2",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_symbols_chunking.py",
+      "chunk_size": 884,
+      "line_count": 35,
+      "start_line_no": 0,
+      "end_line_no": 34,
+      "node_count": 5,
+      "symbols": [
+        "test_default_metadata_includes_symbols_single_function",
+        "test_symbols_multi_function_size_strategy"
+      ],
+      "symbol_count": 2
+    }
+  },
+  {
+    "content": "def test_default_metadata_includes_symbols_single_function() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = \"def f():\\n    return 1\\n\"\n    chunks = builder.chunkify(code, chunk_overlap=0, repo_level_metadata={\"filepath\": \"m.py\"})\n    assert len(chunks) == 1\n    meta = chunks[0][\"metadata\"]\n    assert meta[\"symbols\"] == [\"f\"]\n    assert meta[\"symbol_count\"] == 1\n\n\ndef test_symbols_multi_function_size_strategy() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=2000,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"def alpha():\\n    return 1\\n\\n\"\n        \"def beta():\\n    return 2\\n\"\n    )\n    chunks = builder.chunkify(code, chunk_overlap=0, repo_level_metadata={})\n    assert len(chunks) == 1\n    assert set(chunks[0][\"metadata\"][\"symbols\"]) == {\"alpha\", \"beta\"}\n    assert chunks[0][\"metadata\"][\"symbol_count\"] == 2\n\n\ndef test_symbols_partial_overlap_when_chunk_splits() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=25,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"def first():\\n\"\n        \"    return 1\\n\\n\"\n        \"def second():\\n\"\n        \"    return 2\\n\"\n    )\n    chunks = builder.chunkify(code, chunk_overlap=0, repo_level_metadata={})\n    assert len(chunks) >= 2\n    all_syms = [set(c[\"metadata\"][\"symbols\"]) for c in chunks]\n    assert any(\"first\" in s and \"second\" not in s for s in all_syms)\n    assert any(\"second\" in s for s in all_syms)",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_symbols_chunking.py",
+      "chunk_size": 1201,
+      "line_count": 47,
+      "start_line_no": 7,
+      "end_line_no": 53,
+      "node_count": 3,
       "symbols": [
         "test_default_metadata_includes_symbols_single_function",
         "test_symbols_multi_function_size_strategy",
+        "test_symbols_partial_overlap_when_chunk_splits"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def test_symbols_multi_function_size_strategy() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=2000,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"def alpha():\\n    return 1\\n\\n\"\n        \"def beta():\\n    return 2\\n\"\n    )\n    chunks = builder.chunkify(code, chunk_overlap=0, repo_level_metadata={})\n    assert len(chunks) == 1\n    assert set(chunks[0][\"metadata\"][\"symbols\"]) == {\"alpha\", \"beta\"}\n    assert chunks[0][\"metadata\"][\"symbol_count\"] == 2\n\n\ndef test_symbols_partial_overlap_when_chunk_splits() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=25,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"def first():\\n\"\n        \"    return 1\\n\\n\"\n        \"def second():\\n\"\n        \"    return 2\\n\"\n    )\n    chunks = builder.chunkify(code, chunk_overlap=0, repo_level_metadata={})\n    assert len(chunks) >= 2\n    all_syms = [set(c[\"metadata\"][\"symbols\"]) for c in chunks]\n    assert any(\"first\" in s and \"second\" not in s for s in all_syms)\n    assert any(\"second\" in s for s in all_syms)\n\n\ndef test_definition_strategy_one_chunk_per_top_level_def() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"def a():\\n    return 1\\n\\n\"\n        \"def b():\\n    return 2\\n\"\n    )\n    chunks = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"definition\",\n        repo_level_metadata={},\n    )\n    assert len(chunks) == 2\n    assert chunks[0][\"metadata\"][\"symbols\"] == [\"a\"]\n    assert chunks[1][\"metadata\"][\"symbols\"] == [\"b\"]",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_symbols_chunking.py",
+      "chunk_size": 1242,
+      "line_count": 54,
+      "start_line_no": 21,
+      "end_line_no": 74,
+      "node_count": 3,
+      "symbols": [
+        "test_symbols_multi_function_size_strategy",
+        "test_symbols_partial_overlap_when_chunk_splits",
+        "test_definition_strategy_one_chunk_per_top_level_def"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def test_symbols_partial_overlap_when_chunk_splits() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=25,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"def first():\\n\"\n        \"    return 1\\n\\n\"\n        \"def second():\\n\"\n        \"    return 2\\n\"\n    )\n    chunks = builder.chunkify(code, chunk_overlap=0, repo_level_metadata={})\n    assert len(chunks) >= 2\n    all_syms = [set(c[\"metadata\"][\"symbols\"]) for c in chunks]\n    assert any(\"first\" in s and \"second\" not in s for s in all_syms)\n    assert any(\"second\" in s for s in all_syms)\n\n\ndef test_definition_strategy_one_chunk_per_top_level_def() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"def a():\\n    return 1\\n\\n\"\n        \"def b():\\n    return 2\\n\"\n    )\n    chunks = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"definition\",\n        repo_level_metadata={},\n    )\n    assert len(chunks) == 2\n    assert chunks[0][\"metadata\"][\"symbols\"] == [\"a\"]\n    assert chunks[1][\"metadata\"][\"symbols\"] == [\"b\"]\n\n\ndef test_definition_strategy_with_preamble() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"MODULE = 1\\n\\n\"\n        \"def fn():\\n    pass\\n\"\n    )\n    chunks = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"definition\",\n        repo_level_metadata={},\n    )\n    assert len(chunks) == 2\n    assert chunks[0][\"metadata\"][\"symbols\"] == []\n    assert chunks[1][\"metadata\"][\"symbols\"] == [\"fn\"]",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_symbols_chunking.py",
+      "chunk_size": 1231,
+      "line_count": 59,
+      "start_line_no": 37,
+      "end_line_no": 95,
+      "node_count": 3,
+      "symbols": [
         "test_symbols_partial_overlap_when_chunk_splits",
         "test_definition_strategy_one_chunk_per_top_level_def",
+        "test_definition_strategy_with_preamble"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def test_definition_strategy_one_chunk_per_top_level_def() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"def a():\\n    return 1\\n\\n\"\n        \"def b():\\n    return 2\\n\"\n    )\n    chunks = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"definition\",\n        repo_level_metadata={},\n    )\n    assert len(chunks) == 2\n    assert chunks[0][\"metadata\"][\"symbols\"] == [\"a\"]\n    assert chunks[1][\"metadata\"][\"symbols\"] == [\"b\"]\n\n\ndef test_definition_strategy_with_preamble() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"MODULE = 1\\n\\n\"\n        \"def fn():\\n    pass\\n\"\n    )\n    chunks = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"definition\",\n        repo_level_metadata={},\n    )\n    assert len(chunks) == 2\n    assert chunks[0][\"metadata\"][\"symbols\"] == []\n    assert chunks[1][\"metadata\"][\"symbols\"] == [\"fn\"]\n\n\ndef test_hybrid_splits_oversized_definition() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=400,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    body = \"\\n\".join(f\"    x_{i} = {i}\" for i in range(120))\n    code = f\"def big():\\n{body}\\n    return 0\\n\"\n    chunks_def = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"definition\",\n        repo_level_metadata={},\n    )\n    chunks_hybrid = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"hybrid\",\n        repo_level_metadata={},\n    )\n    assert len(chunks_def) == 1\n    assert len(chunks_hybrid) > 1\n    assert all(\"big\" in c[\"metadata\"][\"symbols\"] for c in chunks_hybrid)",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_symbols_chunking.py",
+      "chunk_size": 1327,
+      "line_count": 65,
+      "start_line_no": 56,
+      "end_line_no": 120,
+      "node_count": 3,
+      "symbols": [
+        "test_definition_strategy_one_chunk_per_top_level_def",
+        "test_definition_strategy_with_preamble",
+        "test_hybrid_splits_oversized_definition"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def test_definition_strategy_with_preamble() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"MODULE = 1\\n\\n\"\n        \"def fn():\\n    pass\\n\"\n    )\n    chunks = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"definition\",\n        repo_level_metadata={},\n    )\n    assert len(chunks) == 2\n    assert chunks[0][\"metadata\"][\"symbols\"] == []\n    assert chunks[1][\"metadata\"][\"symbols\"] == [\"fn\"]\n\n\ndef test_hybrid_splits_oversized_definition() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=400,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    body = \"\\n\".join(f\"    x_{i} = {i}\" for i in range(120))\n    code = f\"def big():\\n{body}\\n    return 0\\n\"\n    chunks_def = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"definition\",\n        repo_level_metadata={},\n    )\n    chunks_hybrid = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"hybrid\",\n        repo_level_metadata={},\n    )\n    assert len(chunks_def) == 1\n    assert len(chunks_hybrid) > 1\n    assert all(\"big\" in c[\"metadata\"][\"symbols\"] for c in chunks_hybrid)\n\n\ndef test_invalid_chunk_strategy_raises() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=100,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    with pytest.raises(ValueError, match=\"chunk_strategy\"):\n        builder.chunkify(\"x = 1\\n\", chunk_strategy=\"nope\")",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_symbols_chunking.py",
+      "chunk_size": 1153,
+      "line_count": 54,
+      "start_line_no": 77,
+      "end_line_no": 130,
+      "node_count": 3,
+      "symbols": [
         "test_definition_strategy_with_preamble",
         "test_hybrid_splits_oversized_definition",
+        "test_invalid_chunk_strategy_raises"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def test_hybrid_splits_oversized_definition() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=400,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    body = \"\\n\".join(f\"    x_{i} = {i}\" for i in range(120))\n    code = f\"def big():\\n{body}\\n    return 0\\n\"\n    chunks_def = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"definition\",\n        repo_level_metadata={},\n    )\n    chunks_hybrid = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"hybrid\",\n        repo_level_metadata={},\n    )\n    assert len(chunks_def) == 1\n    assert len(chunks_hybrid) > 1\n    assert all(\"big\" in c[\"metadata\"][\"symbols\"] for c in chunks_hybrid)\n\n\ndef test_invalid_chunk_strategy_raises() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=100,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    with pytest.raises(ValueError, match=\"chunk_strategy\"):\n        builder.chunkify(\"x = 1\\n\", chunk_strategy=\"nope\")\n\n\ndef test_metadata_none_has_no_symbols_key() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"none\",\n    )\n    chunks = builder.chunkify(\"def f():\\n    pass\\n\", chunk_overlap=0)\n    assert chunks[0][\"metadata\"] == {}",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_symbols_chunking.py",
+      "chunk_size": 994,
+      "line_count": 43,
+      "start_line_no": 98,
+      "end_line_no": 140,
+      "node_count": 3,
+      "symbols": [
+        "test_hybrid_splits_oversized_definition",
+        "test_invalid_chunk_strategy_raises",
+        "test_metadata_none_has_no_symbols_key"
+      ],
+      "symbol_count": 3
+    }
+  },
+  {
+    "content": "def test_invalid_chunk_strategy_raises() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=100,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    with pytest.raises(ValueError, match=\"chunk_strategy\"):\n        builder.chunkify(\"x = 1\\n\", chunk_strategy=\"nope\")\n\n\ndef test_metadata_none_has_no_symbols_key() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"none\",\n    )\n    chunks = builder.chunkify(\"def f():\\n    pass\\n\", chunk_overlap=0)\n    assert chunks[0][\"metadata\"] == {}\n\n\ndef test_chunk_strategy_size_explicit() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = \"def a():\\n    pass\\n\"\n    chunks = builder.chunkify(\n        code,\n        chunk_strategy=\"size\",\n        repo_level_metadata={},\n    )\n    assert len(chunks) == 1\n    assert chunks[0][\"metadata\"][\"symbols\"] == [\"a\"]",
+    "metadata": {
+      "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_symbols_chunking.py",
+      "chunk_size": 758,
+      "line_count": 34,
+      "start_line_no": 123,
+      "end_line_no": 156,
+      "node_count": 3,
+      "symbols": [
         "test_invalid_chunk_strategy_raises",
         "test_metadata_none_has_no_symbols_key",
         "test_chunk_strategy_size_explicit"
       ],
-      "symbol_count": 9
+      "symbol_count": 3
     }
   },
   {
-    "content": "\"\"\"Tests for tree-sitter symbol metadata and definition/hybrid chunk strategies.\"\"\"\n\nimport pytest\n\nfrom astchunk import ASTChunkBuilder\n\n\ndef test_default_metadata_includes_symbols_single_function() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = \"def f():\\n    return 1\\n\"\n    chunks = builder.chunkify(code, chunk_overlap=0, repo_level_metadata={\"filepath\": \"m.py\"})\n    assert len(chunks) == 1\n    meta = chunks[0][\"metadata\"]\n    assert meta[\"symbols\"] == [\"f\"]\n    assert meta[\"symbol_count\"] == 1\n\n\ndef test_symbols_multi_function_size_strategy() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=2000,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"def alpha():\\n    return 1\\n\\n\"\n        \"def beta():\\n    return 2\\n\"\n    )\n    chunks = builder.chunkify(code, chunk_overlap=0, repo_level_metadata={})\n    assert len(chunks) == 1\n    assert set(chunks[0][\"metadata\"][\"symbols\"]) == {\"alpha\", \"beta\"}\n    assert chunks[0][\"metadata\"][\"symbol_count\"] == 2\n\n\ndef test_symbols_partial_overlap_when_chunk_splits() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=25,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"def first():\\n\"\n        \"    return 1\\n\\n\"\n        \"def second():\\n\"\n        \"    return 2\\n\"\n    )\n    chunks = builder.chunkify(code, chunk_overlap=0, repo_level_metadata={})\n    assert len(chunks) >= 2\n    all_syms = [set(c[\"metadata\"][\"symbols\"]) for c in chunks]\n    assert any(\"first\" in s and \"second\" not in s for s in all_syms)\n    assert any(\"second\" in s for s in all_syms)\n\n\ndef test_definition_strategy_one_chunk_per_top_level_def() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"def a():\\n    return 1\\n\\n\"\n        \"def b():\\n    return 2\\n\"\n    )\n    chunks = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"definition\",\n        repo_level_metadata={},\n    )\n    assert len(chunks) == 2\n    assert chunks[0][\"metadata\"][\"symbols\"] == [\"a\"]\n    assert chunks[1][\"metadata\"][\"symbols\"] == [\"b\"]\n\n\ndef test_definition_strategy_with_preamble() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = (\n        \"MODULE = 1\\n\\n\"\n        \"def fn():\\n    pass\\n\"\n    )\n    chunks = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"definition\",\n        repo_level_metadata={},\n    )\n    assert len(chunks) == 2\n    assert chunks[0][\"metadata\"][\"symbols\"] == []\n    assert chunks[1][\"metadata\"][\"symbols\"] == [\"fn\"]\n\n\ndef test_hybrid_splits_oversized_definition() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=400,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    body = \"\\n\".join(f\"    x_{i} = {i}\" for i in range(120))\n    code = f\"def big():\\n{body}\\n    return 0\\n\"\n    chunks_def = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"definition\",\n        repo_level_metadata={},\n    )\n    chunks_hybrid = builder.chunkify(\n        code,\n        chunk_overlap=0,\n        chunk_strategy=\"hybrid\",\n        repo_level_metadata={},\n    )\n    assert len(chunks_def) == 1\n    assert len(chunks_hybrid) > 1\n    assert all(\"big\" in c[\"metadata\"][\"symbols\"] for c in chunks_hybrid)\n\n\ndef test_invalid_chunk_strategy_raises() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=100,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    with pytest.raises(ValueError, match=\"chunk_strategy\"):\n        builder.chunkify(\"x = 1\\n\", chunk_strategy=\"nope\")\n\n\ndef test_metadata_none_has_no_symbols_key() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"none\",\n    )\n    chunks = builder.chunkify(\"def f():\\n    pass\\n\", chunk_overlap=0)\n    assert chunks[0][\"metadata\"] == {}\n\n\ndef test_chunk_strategy_size_explicit() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = \"def a():\\n    pass\\n\"\n    chunks = builder.chunkify(\n        code,\n        chunk_strategy=\"size\",\n        repo_level_metadata={},\n    )\n    assert len(chunks) == 1\n    assert chunks[0][\"metadata\"][\"symbols\"] == [\"a\"]",
+    "content": "def test_metadata_none_has_no_symbols_key() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"none\",\n    )\n    chunks = builder.chunkify(\"def f():\\n    pass\\n\", chunk_overlap=0)\n    assert chunks[0][\"metadata\"] == {}\n\n\ndef test_chunk_strategy_size_explicit() -> None:\n    builder = ASTChunkBuilder(\n        max_chunk_size=500,\n        language=\"python\",\n        metadata_template=\"default\",\n    )\n    code = \"def a():\\n    pass\\n\"\n    chunks = builder.chunkify(\n        code,\n        chunk_strategy=\"size\",\n        repo_level_metadata={},\n    )\n    assert len(chunks) == 1\n    assert chunks[0][\"metadata\"][\"symbols\"] == [\"a\"]",
     "metadata": {
       "filepath": "/Users/aldrete/Dev/astchunk-cli/tests/test_symbols_chunking.py",
-      "chunk_size": 3406,
-      "line_count": 157,
-      "start_line_no": 0,
+      "chunk_size": 522,
+      "line_count": 24,
+      "start_line_no": 133,
       "end_line_no": 156,
-      "node_count": 12,
+      "node_count": 2,
       "symbols": [
-        "test_default_metadata_includes_symbols_single_function",
-        "test_symbols_multi_function_size_strategy",
-        "test_symbols_partial_overlap_when_chunk_splits",
-        "test_definition_strategy_one_chunk_per_top_level_def",
-        "test_definition_strategy_with_preamble",
-        "test_hybrid_splits_oversized_definition",
-        "test_invalid_chunk_strategy_raises",
         "test_metadata_none_has_no_symbols_key",
         "test_chunk_strategy_size_explicit"
       ],
-      "symbol_count": 9
+      "symbol_count": 2
     }
   }
 ]
