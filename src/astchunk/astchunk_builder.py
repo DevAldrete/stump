@@ -1,5 +1,5 @@
 import numpy as np
-from typing import Generator
+from typing import Generator, List
 
 import tree_sitter as ts
 import tree_sitter_python as tspython
@@ -11,9 +11,14 @@ import pyrsistent
 from astchunk.astnode import ASTNode
 from astchunk.astchunk import ASTChunk
 from astchunk.preprocessing import (
-    ByteRange, 
-    preprocess_nws_count, 
-    get_nws_count
+    ByteRange,
+    preprocess_nws_count,
+    get_nws_count,
+)
+from astchunk.symbols import (
+    DefinitionSpan,
+    collect_definitions,
+    is_definition_node,
 )
 
 
@@ -172,7 +177,55 @@ class ASTChunkBuilder():
                 merged_windows.append(window[:])
         
         yield from merged_windows
-    
+
+    def assign_tree_to_definition_windows(
+        self,
+        root_node: ts.Node,
+        nws_cumsum: np.ndarray,
+        hybrid: bool,
+    ) -> Generator[list[ASTNode], None, None]:
+        """
+        Chunk along top-level definition boundaries, with leading non-definition
+        statements grouped as preamble (size-budget chunking).
+
+        ``hybrid`` splits oversized definitions using the same greedy algorithm as
+        ``assign_nodes_to_windows`` on the definition body; ``definition`` keeps one
+        window per definition even when it exceeds ``max_chunk_size``.
+        """
+        ancestors_root = pyrsistent.v(root_node)
+        preamble: list[ts.Node] = []
+
+        def flush_preamble() -> Generator[list[ASTNode], None, None]:
+            if not preamble:
+                return
+            yield from self.assign_nodes_to_windows(
+                preamble, nws_cumsum, ancestors_root
+            )
+            preamble.clear()
+
+        for child in root_node.children:
+            if is_definition_node(child, self.language):
+                yield from flush_preamble()
+                node_range = ByteRange(child.start_byte, child.end_byte)
+                node_size = get_nws_count(nws_cumsum, node_range)
+                if hybrid and node_size > self.max_chunk_size:
+                    def_ancestors = ancestors_root.append(child)
+                    sub = list(
+                        self.assign_nodes_to_windows(
+                            child.children, nws_cumsum, def_ancestors
+                        )
+                    )
+                    if sub:
+                        yield from self.merge_adjacent_windows(sub)
+                    else:
+                        yield [ASTNode(child, node_size, ancestors_root)]
+                else:
+                    yield [ASTNode(child, node_size, ancestors_root)]
+            else:
+                preamble.append(child)
+
+        yield from flush_preamble()
+
     # ------------------------------ #
     #            Step #2             #
     # ------------------------------ #
@@ -228,8 +281,13 @@ class ASTChunkBuilder():
     # ------------------------------ #
     #            Step #3             #
     # ------------------------------ #
-    def convert_windows_to_chunks(self, ast_windows: list[list[ASTNode]], 
-                                  repo_level_metadata: dict, chunk_expansion: bool) -> list[ASTChunk]:
+    def convert_windows_to_chunks(
+        self,
+        ast_windows: list[list[ASTNode]],
+        repo_level_metadata: dict,
+        chunk_expansion: bool,
+        file_definitions: List[DefinitionSpan],
+    ) -> list[ASTChunk]:
         """
         Convert each tentative window of ASTNode into an ASTChunk object.
 
@@ -246,6 +304,7 @@ class ASTChunkBuilder():
             ast_windows: A list of list (windows) of ASTNode
             repo_level_metadata: Repository-level metadata (e.g., repo name, file path)
             chunk_expansion: Whether to perform chunk expansion (i.e., add metadata headers to chunks)
+            file_definitions: Definition spans for the parsed file (for ``symbols`` metadata)
 
         Returns:
             A list of ASTChunk objects
@@ -259,7 +318,9 @@ class ASTChunkBuilder():
                 language=self.language,
                 metadata_template=self.metadata_template
             )
-            current_chunk.build_metadata(repo_level_metadata)
+            current_chunk.build_metadata(
+                repo_level_metadata, file_definitions=file_definitions
+            )
             
             # (optional) apply chunk expansion
             if chunk_expansion:
@@ -298,14 +359,31 @@ class ASTChunkBuilder():
         Args:
             code: code to be chunked
             **configs: additional arguments for building chunks and/or chunk metadata
+                (e.g. ``chunk_strategy`` one of ``size``, ``definition``, ``hybrid``)
         '''
         # step 1: greedily assign AST tree / AST nodes to windows
         #         see self.assign_tree_to_windows() and self.assign_nodes_to_windows() for details
         ast = self.parser.parse(bytes(code, "utf8"))
-        ast_windows = list(self.assign_tree_to_windows(
-            code=code, 
-            root_node=ast.root_node
-        ))
+        file_definitions = collect_definitions(ast.root_node, self.language)
+        chunk_strategy = configs.get("chunk_strategy", "size")
+        if chunk_strategy == "size":
+            ast_windows = list(
+                self.assign_tree_to_windows(code=code, root_node=ast.root_node)
+            )
+        elif chunk_strategy in ("definition", "hybrid"):
+            nws_cumsum = preprocess_nws_count(bytes(code, "utf8"))
+            ast_windows = list(
+                self.assign_tree_to_definition_windows(
+                    ast.root_node,
+                    nws_cumsum,
+                    hybrid=(chunk_strategy == "hybrid"),
+                )
+            )
+        else:
+            raise ValueError(
+                f"Unsupported chunk_strategy: {chunk_strategy!r} "
+                "(expected 'size', 'definition', or 'hybrid')"
+            )
         # [after this step]: list[list[ASTNode]] where each sublist represents an AST window
 
         # step 2 (optional): add overlapping
@@ -320,7 +398,8 @@ class ASTChunkBuilder():
         ast_chunks = self.convert_windows_to_chunks(
             ast_windows=ast_windows,
             repo_level_metadata=configs.get("repo_level_metadata", {}),
-            chunk_expansion=configs.get("chunk_expansion", False)
+            chunk_expansion=configs.get("chunk_expansion", False),
+            file_definitions=file_definitions,
         )
         # [after this step]: list[ASTChunk]
 

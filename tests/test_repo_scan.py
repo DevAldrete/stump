@@ -86,4 +86,7 @@ def test_chunk_metadata_filepath_absolute(tmp_path: Path) -> None:
         repo_level_metadata={"filepath": str(src.resolve())},
     )
     assert chunks
-    assert chunks[0]["metadata"]["filepath"] == str(src.resolve())
+    meta = chunks[0]["metadata"]
+    assert meta["filepath"] == str(src.resolve())
+    assert meta["symbols"] == ["f"]
+    assert meta["symbol_count"] == 1

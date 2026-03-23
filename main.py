@@ -15,6 +15,7 @@ from astchunk.repo_scan import (
 app = ty.Typer(help="AST-based code chunking CLI")
 
 SUPPORTED_LANGUAGES = frozenset({"python", "java", "csharp", "typescript"})
+CHUNK_STRATEGIES = frozenset({"size", "definition", "hybrid"})
 
 
 def _write_chunk_output(
@@ -118,6 +119,11 @@ def chunk(
         "--file-path",
         help="Override filepath in chunk metadata (default: absolute path of input file)",
     ),
+    chunk_strategy: str = ty.Option(
+        "size",
+        "--chunk-strategy",
+        help="size (default), definition (one window per top-level def), or hybrid (split large defs)",
+    ),
     json_output: bool = ty.Option(
         False,
         "-j",
@@ -128,6 +134,10 @@ def chunk(
     """
     Chunk source code into AST-based chunks.
     """
+    if chunk_strategy not in CHUNK_STRATEGIES:
+        raise ty.BadParameter(
+            f"chunk_strategy must be one of {', '.join(sorted(CHUNK_STRATEGIES))}"
+        )
     code = input_file.read_text(encoding="utf-8")
 
     configs = {
@@ -136,6 +146,7 @@ def chunk(
         "metadata_template": metadata_template,
         "chunk_expansion": chunk_expansion,
         "chunk_overlap": chunk_overlap,
+        "chunk_strategy": chunk_strategy,
     }
 
     repo_level_metadata: dict = {}
@@ -229,6 +240,11 @@ def chunk_repo(
         "--extra-ignore",
         help="Additional gitignore-style lines (repeatable)",
     ),
+    chunk_strategy: str = ty.Option(
+        "size",
+        "--chunk-strategy",
+        help="size (default), definition (one window per top-level def), or hybrid (split large defs)",
+    ),
     json_output: bool = ty.Option(
         True,
         "--json/--no-json",
@@ -238,6 +254,10 @@ def chunk_repo(
     """
     Recursively chunk supported source files under a directory, honoring .gitignore.
     """
+    if chunk_strategy not in CHUNK_STRATEGIES:
+        raise ty.BadParameter(
+            f"chunk_strategy must be one of {', '.join(sorted(CHUNK_STRATEGIES))}"
+        )
     lang_filter: Optional[str]
     if language == "auto":
         lang_filter = None
@@ -271,6 +291,7 @@ def chunk_repo(
     chunkify_kwargs_template = {
         "chunk_expansion": chunk_expansion,
         "chunk_overlap": chunk_overlap,
+        "chunk_strategy": chunk_strategy,
     }
 
     builders: dict[str, ASTChunkBuilder] = {}

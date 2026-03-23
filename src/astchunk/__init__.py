@@ -8,6 +8,7 @@ while preserving syntactic structure and semantic boundaries.
 from .astchunk_builder import ASTChunkBuilder
 from .astchunk import ASTChunk
 from .astnode import ASTNode
+from .symbols import DefinitionSpan, collect_definitions, symbols_overlapping_chunk
 from .preprocessing import (
     ByteRange,
     IntRange,
@@ -24,6 +25,9 @@ __all__ = [
     "ASTChunkBuilder",
     "ASTChunk",
     "ASTNode",
+    "DefinitionSpan",
+    "collect_definitions",
+    "symbols_overlapping_chunk",
     "ByteRange",
     "IntRange",
     "preprocess_nws_count",

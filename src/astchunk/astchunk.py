@@ -1,5 +1,8 @@
+from typing import List, Optional
+
 from astchunk.astnode import ASTNode
 from astchunk.preprocessing import ByteRange, get_nws_count_direct
+from astchunk.symbols import DefinitionSpan, symbols_overlapping_chunk
 
 
 class ASTChunk():
@@ -129,13 +132,24 @@ class ASTChunk():
 
         return chunk_ancestors
 
-    def build_metadata(self, repo_level_metadata: dict):
+    def build_metadata(
+        self,
+        repo_level_metadata: dict,
+        file_definitions: Optional[List[DefinitionSpan]] = None,
+    ):
         """
         Build metadata for the chunk.
 
         Args:
             repo_level_metadata: repository-level metadata (e.g., repo name, file path)
+            file_definitions: precomputed definition spans for the file (for ``symbols``)
         """
+        symbols: List[str] = []
+        if file_definitions:
+            symbols = symbols_overlapping_chunk(
+                file_definitions, self.start_line, self.end_line
+            )
+
         if self.metadata_template == "none":
             self.metadata = {}
         elif self.metadata_template == "default":
@@ -147,6 +161,8 @@ class ASTChunk():
                 "start_line_no": self.start_line,
                 "end_line_no": self.end_line,
                 "node_count": len(self.ast_window),
+                "symbols": symbols,
+                "symbol_count": len(symbols),
             }
         elif self.metadata_template == "coderagbench-repoeval":
             fpath_tuple = repo_level_metadata.get("fpath_tuple", [])
@@ -159,6 +175,8 @@ class ASTChunk():
                 "start_line_no": self.start_line,
                 "end_line_no": self.end_line,
                 "node_count": len(self.ast_window),
+                "symbols": symbols,
+                "symbol_count": len(symbols),
             }
         elif self.metadata_template == "coderagbench-swebench-lite":
             instance_id = repo_level_metadata.get("instance_id", "")

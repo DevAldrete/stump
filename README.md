@@ -72,6 +72,13 @@ pip install tree-sitter-python tree-sitter-java tree-sitter-c-sharp tree-sitter-
 - **`repo_level_metadata`** *(optional)*: Repository-level metadata (e.g., repo name, file path)
 - **`chunk_overlap`** *(optional)*: Number of AST nodes to overlap between chunks
 - **`chunk_expansion`** *(optional)*: Whether to perform chunk expansion (i.e., add metadata headers to chunks)
+- **`chunk_strategy`** *(optional)*: `size` (default, greedy AST windows), `definition` (one top-level definition per chunk; may exceed `max_chunk_size`), or `hybrid` (definition boundaries with greedy splitting inside oversized definitions)
+
+### Symbol metadata (`default` and `coderagbench-repoeval` templates)
+
+Chunks include **`symbols`** (simple names) and **`symbol_count`**. A name is listed when its tree-sitter definition overlaps the chunk’s line span (inclusive). Line numbers in metadata use tree-sitter’s **0-based** row indices, matching `start_line_no` / `end_line_no`. Duplicate simple names from different scopes appear once in `symbols`.
+
+CLI: pass `--chunk-strategy size|definition|hybrid` to `chunk` and `chunk-repo`.
 
 ## Quick Start
 
