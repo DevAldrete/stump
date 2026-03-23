@@ -53,7 +53,30 @@ pip install astchunk
 From source:
 ```bash
 git clone git@github.com:yilinjz/astchunk.git
+cd astchunk  # or your clone directory name
 pip install -e .
+```
+
+After install, the CLI is available as `astchunk` (see `astchunk --help`). You can also run from a clone without installing by using `python main.py` from the repository root.
+
+### Docker
+
+Build and run the CLI in a container (mount your code to chunk a directory on the host):
+
+```bash
+docker build -t astchunk .
+docker run --rm astchunk --help
+docker run --rm -v "$PWD":/work -w /work astchunk chunk-repo . -o /work/chunks.json
+```
+
+### Building wheels for PyPI
+
+With the optional publish dependencies (`pip install '.[publish]'`), from the repo root:
+
+```bash
+python -m build
+twine check dist/*
+# twine upload dist/*
 ```
 
 ASTChunk depends on [tree-sitter](https://tree-sitter.github.io/tree-sitter/) for parsing. The required language parsers are automatically installed:

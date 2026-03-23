@@ -17,7 +17,7 @@ authors = [
     {name = "Sherry Tongshuang Wu", email = "sherryw@andrew.cmu.edu"},
 ]
 maintainers = [
-    {name = "Yilin (Jason) Zhang", email = "jasonzh3@andrew.cmu.edu"}
+    {name = "Yilin (Jason) Zhang", email = "jasonzh3@andrew.cmu.edu"},
 ]
 keywords = ["ast", "chunking", "code analysis", "code indexing", "code retrieval", "code generation", "tree-sitter", "parsing"]
 classifiers = [
@@ -68,6 +68,10 @@ test = [
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
     "pytest-xdist>=2.5.0"
+]
+publish = [
+    "build>=1.0.0",
+    "twine>=4.0.0"
 ]
 
 [project.urls]
