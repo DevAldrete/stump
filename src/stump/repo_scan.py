@@ -21,6 +21,12 @@ EXT_TO_LANG = {
     ".cs": "csharp",
     ".ts": "typescript",
     ".tsx": "typescript",
+    ".go": "go",
+    ".rs": "rust",
+    ".js": "javascript",
+    ".jsx": "javascript",
+    ".mjs": "javascript",
+    ".cjs": "javascript",
 }
 
 

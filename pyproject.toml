@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "stump-cli"
-version = "0.1.0"
+version = "0.2.0"
 description = "Stump: AST-aware code chunking (tree-sitter). Derived from ASTChunk; cite the cAST paper for research."
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -47,6 +47,9 @@ dependencies = [
     "tree-sitter-typescript>=0.20.0",
     "typer>=0.20.1",
     "pathspec>=0.12.0",
+    "tree-sitter-go>=0.23.0",
+    "tree-sitter-rust>=0.21.2",
+    "tree-sitter-javascript>=0.20.0",
 ]
 
 [project.optional-dependencies]

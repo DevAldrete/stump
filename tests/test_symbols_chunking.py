@@ -155,3 +155,63 @@ def test_chunk_strategy_size_explicit() -> None:
     )
     assert len(chunks) == 1
     assert chunks[0]["metadata"]["symbols"] == ["a"]
+
+
+def test_go_definition_strategy() -> None:
+    builder = ASTChunkBuilder(
+        max_chunk_size=500,
+        language="go",
+        metadata_template="default",
+    )
+    code = (
+        "package main\n\n"
+        "func Alpha() {}\n\n"
+        "func Beta() {}\n"
+    )
+    chunks = builder.chunkify(
+        code,
+        chunk_overlap=0,
+        chunk_strategy="definition",
+        repo_level_metadata={},
+    )
+    # package_clause is preamble (same pattern as Python module-level assigns).
+    assert len(chunks) == 3
+    assert chunks[0]["metadata"]["symbols"] == []
+    assert chunks[1]["metadata"]["symbols"] == ["Alpha"]
+    assert chunks[2]["metadata"]["symbols"] == ["Beta"]
+
+
+def test_rust_definition_strategy() -> None:
+    builder = ASTChunkBuilder(
+        max_chunk_size=500,
+        language="rust",
+        metadata_template="default",
+    )
+    code = "fn alpha() {}\n\nfn beta() {}\n"
+    chunks = builder.chunkify(
+        code,
+        chunk_overlap=0,
+        chunk_strategy="definition",
+        repo_level_metadata={},
+    )
+    assert len(chunks) == 2
+    assert chunks[0]["metadata"]["symbols"] == ["alpha"]
+    assert chunks[1]["metadata"]["symbols"] == ["beta"]
+
+
+def test_javascript_definition_strategy() -> None:
+    builder = ASTChunkBuilder(
+        max_chunk_size=500,
+        language="javascript",
+        metadata_template="default",
+    )
+    code = "function alpha() {}\n\nfunction beta() {}\n"
+    chunks = builder.chunkify(
+        code,
+        chunk_overlap=0,
+        chunk_strategy="definition",
+        repo_level_metadata={},
+    )
+    assert len(chunks) == 2
+    assert chunks[0]["metadata"]["symbols"] == ["alpha"]
+    assert chunks[1]["metadata"]["symbols"] == ["beta"]

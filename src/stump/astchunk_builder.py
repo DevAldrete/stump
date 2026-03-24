@@ -6,6 +6,9 @@ import tree_sitter_python as tspython
 import tree_sitter_java as tsjava
 import tree_sitter_c_sharp as tscsharp
 import tree_sitter_typescript as tstypescript
+import tree_sitter_go as tsgo
+import tree_sitter_rust as tsrust
+import tree_sitter_javascript as tsjavascript
 import pyrsistent
 
 from stump.astnode import ASTNode
@@ -26,7 +29,7 @@ class ASTChunkBuilder():
     """
     Attributes:
         - max_chunk_size: Maximum size for each AST chunk, using non-whitespace character count by default.
-        - language: Supported languages, currently including python, java, c# and typescript.
+        - language: Supported languages (python, java, csharp, typescript, go, rust, javascript).
         - metadata_template: Type of metadata to store (e.g., start/end line number, path to file, etc).
     """
     def __init__(self, **configs):
@@ -42,6 +45,12 @@ class ASTChunkBuilder():
             self.parser = ts.Parser(ts.Language(tscsharp.language()))
         elif self.language == "typescript":
             self.parser = ts.Parser(ts.Language(tstypescript.language_tsx()))
+        elif self.language == "go":
+            self.parser = ts.Parser(ts.Language(tsgo.language()))
+        elif self.language == "rust":
+            self.parser = ts.Parser(ts.Language(tsrust.language()))
+        elif self.language == "javascript":
+            self.parser = ts.Parser(ts.Language(tsjavascript.language()))
         else:
             raise ValueError(f"Unsupported Programming Language: {self.language}!")
 

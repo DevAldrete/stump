@@ -52,11 +52,40 @@ _TYPESCRIPT_DEFS: tuple[tuple[str, Optional[str]], ...] = (
     ("method_signature", "name"),
 )
 
+_GO_DEFS: tuple[tuple[str, Optional[str]], ...] = (
+    ("function_declaration", "name"),
+    ("method_declaration", "name"),
+    ("type_declaration", None),
+    ("const_declaration", None),
+    ("var_declaration", None),
+)
+
+_RUST_DEFS: tuple[tuple[str, Optional[str]], ...] = (
+    ("function_item", "name"),
+    ("struct_item", "name"),
+    ("enum_item", "name"),
+    ("trait_item", "name"),
+    ("type_item", "name"),
+    ("mod_item", "name"),
+    ("impl_item", "type"),
+    ("macro_definition", "name"),
+)
+
+_JAVASCRIPT_DEFS: tuple[tuple[str, Optional[str]], ...] = (
+    ("function_declaration", "name"),
+    ("class_declaration", "name"),
+    ("lexical_declaration", None),
+    ("export_statement", None),
+)
+
 _DEF_CONFIG: dict[str, tuple[tuple[str, Optional[str]], ...]] = {
     "python": _PYTHON_DEFS,
     "java": _JAVA_DEFS,
     "csharp": _CSHARP_DEFS,
     "typescript": _TYPESCRIPT_DEFS,
+    "go": _GO_DEFS,
+    "rust": _RUST_DEFS,
+    "javascript": _JAVASCRIPT_DEFS,
 }
 
 
@@ -77,7 +106,13 @@ class DefinitionSpan:
 
 
 def _first_identifier_text(node: ts.Node) -> Optional[str]:
-    if node.type == "identifier" and node.text:
+    # Grammars vary: Go uses type_identifier; JS uses shorthand_property_identifier, etc.
+    if node.type in (
+        "identifier",
+        "type_identifier",
+        "field_identifier",
+        "property_identifier",
+    ) and node.text:
         return node.text.decode("utf-8")
     for child in node.children:
         found = _first_identifier_text(child)

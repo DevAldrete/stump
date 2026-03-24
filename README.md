@@ -296,12 +296,15 @@ from stump.astchunk import ASTChunk
 
 ## Supported Languages
 
-| Language   | File Extensions | Status |
-|------------|----------------|---------|
-| Python     | `.py`          | ✅ Full support |
-| Java       | `.java`        | ✅ Full support |
-| C#         | `.cs`          | ✅ Full support |
-| TypeScript | `.ts`, `.tsx`  | ✅ Full support |
+| Language    | File Extensions | Status |
+|-------------|-----------------|---------|
+| Python      | `.py`           | ✅ Full support |
+| Java        | `.java`         | ✅ Full support |
+| C#          | `.cs`           | ✅ Full support |
+| TypeScript  | `.ts`, `.tsx`   | ✅ Full support |
+| Go          | `.go`           | ✅ Full support |
+| Rust        | `.rs`           | ✅ Full support |
+| JavaScript  | `.js`, `.jsx`, `.mjs`, `.cjs` | ✅ Full support |
 
 <!-- ## Contributing
 

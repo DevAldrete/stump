@@ -57,6 +57,25 @@ def test_language_filter(tmp_path: Path) -> None:
     assert files[0][1] == "python"
 
 
+def test_extension_language_mapping_go_rust_js(tmp_path: Path) -> None:
+    (tmp_path / "a.go").write_text("package main\n", encoding="utf-8")
+    (tmp_path / "b.rs").write_text("fn main() {}\n", encoding="utf-8")
+    (tmp_path / "c.jsx").write_text("export default function C() {}\n", encoding="utf-8")
+    (tmp_path / "d.mjs").write_text("export const x = 1\n", encoding="utf-8")
+    files = collect_source_files(
+        tmp_path,
+        tmp_path,
+        None,
+        use_gitignore=False,
+        language=None,
+    )
+    by_name = {p.name: lang for p, lang in files}
+    assert by_name["a.go"] == "go"
+    assert by_name["b.rs"] == "rust"
+    assert by_name["c.jsx"] == "javascript"
+    assert by_name["d.mjs"] == "javascript"
+
+
 def test_resolve_ignore_root_override(tmp_path: Path) -> None:
     sub = tmp_path / "sub"
     sub.mkdir()

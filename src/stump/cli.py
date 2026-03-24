@@ -14,8 +14,11 @@ from stump.repo_scan import (
 
 app = ty.Typer(help="Stump — AST chunking CLI (tree-sitter)")
 
-SUPPORTED_LANGUAGES = frozenset({"python", "java", "csharp", "typescript"})
+SUPPORTED_LANGUAGES = frozenset(
+    {"python", "java", "csharp", "typescript", "go", "rust", "javascript"}
+)
 CHUNK_STRATEGIES = frozenset({"size", "definition", "hybrid"})
+_LANG_CHOICE_HELP = "|".join(sorted(SUPPORTED_LANGUAGES))
 
 
 def _write_chunk_output(
@@ -89,7 +92,7 @@ def chunk(
         "python",
         "-l",
         "--language",
-        help="Programming language (python, java, csharp, typescript)",
+        help=f"Programming language ({_LANG_CHOICE_HELP})",
     ),
     metadata_template: str = ty.Option(
         "default",
@@ -137,6 +140,10 @@ def chunk(
     if chunk_strategy not in CHUNK_STRATEGIES:
         raise ty.BadParameter(
             f"chunk_strategy must be one of {', '.join(sorted(CHUNK_STRATEGIES))}"
+        )
+    if language not in SUPPORTED_LANGUAGES:
+        raise ty.BadParameter(
+            f"language must be one of {', '.join(sorted(SUPPORTED_LANGUAGES))}"
         )
     code = input_file.read_text(encoding="utf-8")
 
@@ -193,7 +200,7 @@ def chunk_repo(
         "auto",
         "-l",
         "--language",
-        help="auto (detect from extension) or python|java|csharp|typescript",
+        help=f"auto (detect from extension) or {_LANG_CHOICE_HELP}",
     ),
     metadata_template: str = ty.Option(
         "default",
